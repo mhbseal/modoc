@@ -8,7 +8,7 @@
 
 ##### Run
 
-this repository contains mojs example,so we can run directly.
+this repository contains mojs example,so we can run directly.http://mhbseal.com/api/mojs.html
 
     node modoc
 
