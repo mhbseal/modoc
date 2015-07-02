@@ -5,6 +5,6 @@
     "name": "gitbub repository",
     "url": "https://github.com/mhbseal/mojs"
   },
-  "introduction": "a js library, rely on requirejs",
+  "introduction": "A js library depends on requirejs",
   "skip": ["libs", "core/store/AbstractStorage.js"]
 }
