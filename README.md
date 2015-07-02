@@ -4,13 +4,13 @@
 ##### Repository
 
     git clone https://github.com/mhbseal/modoc.git
-    npm install
+    cd modoc & npm install
 
 ##### Run
 
-this repository contains mojs example,so we can run directly.http://mhbseal.com/api/mojs.html
+this repository contains mojs example(http://mhbseal.com/api/mojs.html),so we can run directly.
 
-    node modoc
+    node modoc.js
 
 ##### Directory introduction
 
