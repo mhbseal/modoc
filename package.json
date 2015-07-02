@@ -1,0 +1,16 @@
+{
+  "name": "modoc",
+  "version": "0.1.0",
+  "description": "an API documentation generator",
+  "scripts": {
+    "start": "node modoc.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mhbseal/modoc"
+  },
+  "author": "Mu Haibao<mhbseal@163.com>",
+  "dependencies": {
+    "underscore": "^1.8.3"
+  }
+}

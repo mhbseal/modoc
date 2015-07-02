@@ -1,14 +1,14 @@
 # modoc
 ### An API documentation generator
 
-##### Usage
+##### Repository
 
     git clone https://github.com/mhbseal/modoc.git
     npm install
 
 ##### Run
 
-this repository contains mojs example,so you can run directly.
+this repository contains mojs example,so we can run directly.
 
     node modoc
 
