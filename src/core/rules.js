@@ -1,10 +1,10 @@
 ﻿/**
+ * 常用的正则校验规则
+ *
  * @author hbmu
  * @date   2014/11/20
  *
  * @name   rules
- * @desc   常用的正则校验规则
- *
  * @examples
  * define(['rules'], function(rules) {
  *   // 校验，返回 true/false

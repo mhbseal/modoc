@@ -319,6 +319,8 @@
     <a class="toc_title" href="#pubSub">pubSub</a>
     <ul class="toc_section">
     
+      <li>- <a href="#pubSub_"></a></li>
+    
       <li>- <a href="#pubSub_publish">publish</a></li>
     
       <li>- <a href="#pubSub_subscribe">subscribe</a></li>
@@ -336,6 +338,8 @@
   
     <a class="toc_title" href="#AbstractStore">AbstractStore</a>
     <ul class="toc_section">
+    
+      <li>- <a href="#AbstractStore_"></a></li>
     
       <li>- <a href="#AbstractStore_AbstractStore">AbstractStore</a></li>
     
@@ -385,7 +389,7 @@
   <p id="introduction">
     <img id="logo" src="images/logo.png" alt="mojs">
   </p>
-  <p>A js library depends on requirejs</p>
+  <p>mojs</p>
   <div id="documentation">
     
       <h2 id="Cookie">Cookie</h2>
@@ -438,8 +442,8 @@
         </p>
         
 <pre>
-@param {string} cookie的name
-@returns {*} cookie的value</pre>
+@param {} {string} cookie的name
+@return {*} cookie的value</pre>
         
         
         <pre>cookie.get('user')</pre>
@@ -467,6 +471,25 @@
       <pre>define(['IdCard'], function(IdCard) { ... })</pre>
       
       
+      <pre>身份证规则
+=====================================================================
+身份证15位编码规则 -- dddddd yymmdd xx p
+dddddd : 地区码
+yymmdd : 出生年月日
+xx     : 顺序类编码，无法确定
+p      : 性别，奇数为男，偶数为女
+ *
+身份证18位编码规则 -- dddddd yyyymmdd xxx y
+dddddd   : 地区码
+yyyymmdd : 出生年月日
+xxx      : 顺序类编码，无法确定，奇数为男，偶数为女
+y        : 校验码，该位数值可通过前17位计算获得
+ *
+18位号码加权因子为          : WI = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2, 1]
+校验位集合                  : CODE = [1, 0, 'x', 9, 8, 7, 6, 5, 4, 3, 2]
+校验位index计算公式         : index = mod(∑(ai×Wi), 11)
+=====================================================================</pre>
+      
       
         <p id="IdCard_IdCard">
           <b class="header">IdCard</b><code>new IdCard(num, options)</code>
@@ -492,7 +515,7 @@
         </p>
         
 <pre>
-@returns {boolean} </pre>
+@return {boolean} </pre>
         
         
         <pre>idCard.checkCode() => true</pre>
@@ -506,7 +529,7 @@
         </p>
         
 <pre>
-@returns {boolean} </pre>
+@return {boolean} </pre>
         
         
         <pre>idCard.checkBirth() => true</pre>
@@ -520,7 +543,7 @@
         </p>
         
 <pre>
-@returns {object} 返回对象
+@return {object} 返回对象
   - year  {number}
   - month {number}
   - day   {number}</pre>
@@ -537,7 +560,7 @@
         </p>
         
 <pre>
-@returns {string} </pre>
+@return {string} </pre>
         
         
         <pre>idCard.getSex() => '男'</pre>
@@ -588,13 +611,13 @@ protocol user   password      host  port directory  file      query   anchor
         <p id="ParseUrl_getAttr">
           <b class="header">getAttr</b><code>parseUrl.getAttr([name])</code>
           <br>
-          读取url中的attr,name为空,则返回所有attr.
+          读取url中的attr,name为空,则返回所有attr
         </p>
         
 <pre>
-@param {string} name,可选 范围"source", "protocol", "authority", "userInfo", "user",
+@param {} {string} name,可选 范围"source", "protocol", "authority", "userInfo", "user",
 "password", "host", "port", "relative", "path", "directory", "file", "query", "anchor"
-@returns {string} value</pre>
+@return {string} value</pre>
         
         
         <pre>parseUrl.getAttr('port') => '80'</pre>
@@ -604,12 +627,12 @@ protocol user   password      host  port directory  file      query   anchor
         <p id="ParseUrl_getParam">
           <b class="header">getParam</b><code>parseUrl.getParam([name])</code>
           <br>
-          读取url中的param,name为空,则返回所有param.
+          读取url中的param,name为空,则返回所有param
         </p>
         
 <pre>
-@param {string} name
-@returns {string} value</pre>
+@param {} {string} name
+@return {string} value</pre>
         
         
         <pre>parseUrl.getParam('query') => 'string'</pre>
@@ -636,7 +659,7 @@ protocol user   password      host  port directory  file      query   anchor
         <p id="common_forIn">
           <b class="header">forIn</b><code>c.forIn(obj, iteratee[, context])</code>
           <br>
-          兼容 IE8- 下有些不枚举的属性，例如'toString',	'toLocaleString', 'valueOf', 'hasOwnProperty',	'isPrototypeOf', 'propertyIsEnumerable', 'constructor'.
+          兼容 IE8- 下有些不枚举的属性，例如'toString',	'toLocaleString', 'valueOf', 'hasOwnProperty',	'isPrototypeOf', 'propertyIsEnumerable', 'constructor'
         </p>
         
 <pre>
@@ -661,10 +684,9 @@ protocol user   password      host  port directory  file      query   anchor
         </p>
         
 <pre>
-@param {boolean} 是否深度复制,可选
-@param {object|array} 目标对象
-@param {} .. {object|array} 需要extend的对象,可多个参数
-@returns {object|array} extend后的object</pre>
+@param {} {boolean} 是否深度复制,可选
+@param {} {object|array} 目标对象
+@return {} {object|array} extend后的object</pre>
         
         
         <pre>c.extend({a: 1}, {b: 2}, {c: 3}) => {a: 1, b: 2, c: 3}
@@ -830,8 +852,8 @@ c.type(2) => 'number'</pre>
         </p>
         
 <pre>
-@param {object} prototype
-@returns {object} 原型为参数prototype的对象</pre>
+@param {} {object} prototype
+@return {object} 原型为参数prototype的对象</pre>
         
         
         <pre>c.prototype({a: function(){}, b: function() {}})</pre>
@@ -845,10 +867,10 @@ c.type(2) => 'number'</pre>
         </p>
         
 <pre>
-@param {function} (子级)构造函数
-@param {object} 原型的方法集，可选
-@param {function} 父级构造函数，可选
-@returns {function} 新的构造函数</pre>
+@param {} {function} (子级)构造函数
+@param {} {object} 原型的方法集，可选
+@param {} {function} 父级构造函数，可选
+@return {function} 新的构造函数</pre>
         
         
         <pre>c.baseClass(A, {a: function() {}, b: function(){}}, B) => A继承B,并且prototype上添加方法a和b
@@ -879,9 +901,9 @@ c.baseClass(A, B) => A继承B</pre>
         </p>
         
 <pre>
-@param {number/string/date} 需要格式化的date
-@param {string} token字符串
-@returns {string} 格式化后的字符串</pre>
+@param {} {number/string/date} 需要格式化的date
+@param {} {string} token字符串
+@return {string} 格式化后的字符串</pre>
         
         
         <pre>date.format('YYYY-MM-DD HH:mm:ss') => '1987-11-03 20:30:40'
@@ -931,10 +953,10 @@ Fractional Second        S           0 1 ... 8 9
         </p>
         
 <pre>
-@param {number|string|date} 需要格式化的date,不传默认为当前时间
-@param {string} 单位['FullYear', 'Month', 'Date', 'Hours', 'Minutes', 'Seconds', 'Milliseconds', 'Time']
-@param {number} n单位
-@returns {Date} 计算后的结果</pre>
+@param {} {number|string|date} 需要格式化的date,不传默认为当前时间
+@param {} {string} 单位['FullYear', 'Month', 'Date', 'Hours', 'Minutes', 'Seconds', 'Milliseconds', 'Time']
+@param {} {number} n单位
+@return {Date} 计算后的结果</pre>
         
         
         <pre>date.add('Minutes', 5) => Thu Dec 03 1987 20:35:40 GMT+0800 (中国标准时间)
@@ -945,7 +967,7 @@ date.sub(birthday, 'Minutes', 5) => Thu Dec 03 1987 20:30:45 GMT+0800 (中国标
       
     
       <h2 id="es5">es5</h2>
-      <p>es5 polyfill or shim. 其中each,map,filter,some,every可以应用到类数组,对象. indexOf,lastIndexOf,reduce,reduceRight可以应用到类数组.</p>
+      <p>es5 polyfill or shim. 其中each,map,filter,some,every可以应用到类数组,对象. indexOf,lastIndexOf,reduce,reduceRight可以应用到类数组</p>
       
       <pre>define(['es5'], function(date) { ... })</pre>
       
@@ -975,13 +997,13 @@ date.sub(birthday, 'Minutes', 5) => Thu Dec 03 1987 20:30:45 GMT+0800 (中国标
         </p>
         
 <pre>
-@param {arraylike|object} 类数组或者对象
-@param {function} 迭代函数
+@param {} {arraylike|object} 类数组或者对象
+@param {} {function} 迭代函数
   - param {*} value
   - param {*} index/key
   - param {array|object} map的第一个参数
-@param {object} iteratee的上下文,可选
-@returns {array} 结果</pre>
+@param {} {object} iteratee的上下文,可选
+@return {array} 结果</pre>
         
         
         
@@ -1020,10 +1042,10 @@ date.sub(birthday, 'Minutes', 5) => Thu Dec 03 1987 20:30:45 GMT+0800 (中国标
         </p>
         
 <pre>
-@param {arraylike} 需要查找的类数组
-@param {*} 需要查找的元素
-@param {number} 开始索引,可选
-@returns {number} 查找到元素的索引值</pre>
+@param {} {arraylike} 需要查找的类数组
+@param {} {*} 需要查找的元素
+@param {} {number} 开始索引,可选
+@return {number} 查找到元素的索引值</pre>
         
         
         
@@ -1044,10 +1066,9 @@ date.sub(birthday, 'Minutes', 5) => Thu Dec 03 1987 20:30:45 GMT+0800 (中国标
         </p>
         
 <pre>
-@param {function} 需要绑定上下文或者是添加参数的函数
-@param {object} func的上下文
-@param {} .. {*} 需要添加的n个参数
-@returns {function} 绑定上下文或者是添加参数后函数</pre>
+@param {} {function} 需要绑定上下文或者是添加参数的函数
+@param {} {object} func的上下文
+@return {} {function} 绑定上下文或者是添加参数后函数</pre>
         
         
         
@@ -1103,10 +1124,10 @@ date.sub(birthday, 'Minutes', 5) => Thu Dec 03 1987 20:30:45 GMT+0800 (中国标
         </p>
         
 <pre>
-@param {object} obj
-@param {string} path
-@param {*} value
-@returns {boolean} 成功true,失败false</pre>
+@param {} {object} obj
+@param {} {string} path
+@param {} {*} value
+@return {boolean} 成功true,失败false</pre>
         
         
         <pre>objectPath.set(obj, 'a.d', 'mo.js') => obj.a.d = 'mo.js'
@@ -1121,9 +1142,9 @@ objectPath.set(obj, 'a.b.e', 'mo.js') => obj.a.b.e = 'mo.js'</pre>
         </p>
         
 <pre>
-@param {object} obj
-@param {string} path
-@returns {*} value</pre>
+@param {} {object} obj
+@param {} {string} path
+@return {*} value</pre>
         
         
         <pre>objectPath.get(obj, 'a.b.e') => 'mo.js'</pre>
@@ -1137,6 +1158,20 @@ objectPath.set(obj, 'a.b.e', 'mo.js') => obj.a.b.e = 'mo.js'</pre>
       <pre>define(['pubSub'], function(pubSub) { ... })</pre>
       
       
+      
+        <p id="pubSub_">
+          <b class="header"></b><code></code>
+          <br>
+          订阅,私有方法
+        </p>
+        
+<pre>
+@param {object} 消息集合(messages或者包含子message的message)
+@param {string} 消息
+@param {*} 执行订阅的handler时传入的data</pre>
+        
+        
+        
       
         <p id="pubSub_publish">
           <b class="header">publish</b><code>pubSub.publish(message, data)</code>
@@ -1173,7 +1208,7 @@ objectPath.set(obj, 'a.b.e', 'mo.js') => obj.a.b.e = 'mo.js'</pre>
         
 <pre>
 @param {string} 消息
-@param {function} 处理句柄,可选,如果为空则清除message上的所有handler.</pre>
+@param {function} 处理句柄,可选,如果为空则清除message上的所有handler</pre>
         
         
         
@@ -1194,34 +1229,6 @@ objectPath.set(obj, 'a.b.e', 'mo.js') => obj.a.b.e = 'mo.js'</pre>
       <h2 id="rules">rules</h2>
       <p>常用的正则校验规则</p>
       
-      <pre>define(['rules'], function(rules) {
-  // 校验，返回 true/false
-  rules.isRequired('校验文本') // 必填
-  rules.isChinese('校验文本') // 中文
-  rules.isDoubleByte() // 双字节
-  rules.isZipcode() // 邮政编码
-  rules.isQq() // QQ
-  rules.isPicture() // 图片
-  rules.isRar() // 压缩文件
-  rules.isMobile() // 手机号
-  rules.isMoney() // 金额
-  rules.isEnglish() // 英文字母
-  rules.isLowerCase() // 英文小写
-  rules.isUpperCase() // 英文大写
-  rules.isNumber() // 纯数字
-  rules.isInteger() // 整数
-  rules.isFloat() // 浮点数
-  rules.isRealName() // 姓名
-  rules.isEmail() // 邮箱
-  rules.isUrl() // 网址
-  rules.isIdCard() // 身份证
-  rules.isPhone() // 座机
-  rules.isAreaNum() // 座机-区号
-  rules.isHostNum() // 座机-主号
-  rules.isExtensionNum() // 座机-分机号
-  rules.isIp() // IP地址
-})</pre>
-      
       
       
     
@@ -1231,6 +1238,19 @@ objectPath.set(obj, 'a.b.e', 'mo.js') => obj.a.b.e = 'mo.js'</pre>
       <pre>define(['AbstractStore'], function(AbstractStore) { ... })</pre>
       
       
+      
+        <p id="AbstractStore_">
+          <b class="header"></b><code></code>
+          <br>
+          根据liftTime 计算要增加的毫秒数
+        </p>
+        
+<pre>
+@param {} {string} liftTime 单位D,H,M,S. eg. '24H'
+@return {number} 根据liftTime计算要增加的毫秒数</pre>
+        
+        
+        
       
         <p id="AbstractStore_AbstractStore">
           <b class="header">AbstractStore</b><code>new AbstractStore(options)</code>
@@ -1260,10 +1280,10 @@ objectPath.set(obj, 'a.b.e', 'mo.js') => obj.a.b.e = 'mo.js'</pre>
         </p>
         
 <pre>
-@param {*} value
-@param {string} 可选,tag标识,如果传递tag,get时会比较tag标识,不一致返回null
-@param {string} 可选,默认false,是否设置回滚数据
-@returns {boolean} 成功true,失败false</pre>
+@param {} {*} value
+@param {} {string} 可选,tag标识,如果传递tag,get时会比较tag标识,不一致返回null
+@param {} {string} 可选,默认false,是否设置回滚数据
+@return {boolean} 成功true,失败false</pre>
         
         
         
@@ -1275,11 +1295,11 @@ objectPath.set(obj, 'a.b.e', 'mo.js') => obj.a.b.e = 'mo.js'</pre>
         </p>
         
 <pre>
-@param {String} name 支持通过路径的方式，如'a.b.c'
-@param {*} value
-@param {string} 可选,tag标识,如果传递tag,get时会比较tag标识,不一致返回null
-@param {string} 可选,默认false,是否设置回滚数据
-@returns {boolean} 成功true,失败false</pre>
+@param {} {String} name 支持通过路径的方式，如'a.b.c'
+@param {} {*} value
+@param {} {string} 可选,tag标识,如果传递tag,get时会比较tag标识,不一致返回null
+@param {} {string} 可选,默认false,是否设置回滚数据
+@return {boolean} 成功true,失败false</pre>
         
         
         
@@ -1291,9 +1311,9 @@ objectPath.set(obj, 'a.b.e', 'mo.js') => obj.a.b.e = 'mo.js'</pre>
         </p>
         
 <pre>
-@param {string} 可选,tag标识,如果传递tag,get时会比较tag标识,不一致返回null
-@param {string} 可选,默认false,是否设置回滚数据
-@returns {*} value</pre>
+@param {} {string} 可选,tag标识,如果传递tag,get时会比较tag标识,不一致返回null
+@param {} {string} 可选,默认false,是否设置回滚数据
+@return {*} value</pre>
         
         
         
@@ -1305,10 +1325,10 @@ objectPath.set(obj, 'a.b.e', 'mo.js') => obj.a.b.e = 'mo.js'</pre>
         </p>
         
 <pre>
-@param {String} name 支持通过路径的方式，如'a.b.c'
-@param {string} 可选,tag标识,如果传递tag,get时会比较tag标识,不一致返回null
-@param {string} 可选,默认false,是否设置回滚数据
-@returns {*} value</pre>
+@param {} {String} name 支持通过路径的方式，如'a.b.c'
+@param {} {string} 可选,tag标识,如果传递tag,get时会比较tag标识,不一致返回null
+@param {} {string} 可选,默认false,是否设置回滚数据
+@return {*} value</pre>
         
         
         
@@ -1356,8 +1376,8 @@ objectPath.set(obj, 'a.b.e', 'mo.js') => obj.a.b.e = 'mo.js'</pre>
         </p>
         
 <pre>
-@param {string} 可选,默认false,回滚后是否清除回滚数据
-@returns {boolean} 成功true,失败false</pre>
+@param {} {string} 可选,默认false,回滚后是否清除回滚数据
+@return {boolean} 成功true,失败false</pre>
         
         
         
@@ -1402,7 +1422,7 @@ objectPath.set(obj, 'a.b.e', 'mo.js') => obj.a.b.e = 'mo.js'</pre>
         </p>
         
 <pre>
-@returns {string} guid</pre>
+@return {string} guid</pre>
         
         
         <pre>util.guid() => 'd42fb5af-9b78-6320-9a79-327cb00ea561'</pre>
@@ -1416,9 +1436,9 @@ objectPath.set(obj, 'a.b.e', 'mo.js') => obj.a.b.e = 'mo.js'</pre>
         </p>
         
 <pre>
-@param {string} 要计算的字符串
-@param {number} 可选,字符串(双字节长度为2)的index
-@returns {object} 返回对象
+@param {} {string} 要计算的字符串
+@param {} {number} 可选,字符串(双字节长度为2)的index
+@return {object} 返回对象
   - length {number} 字符串(双字节长度为2)的长度
   - index  {number} 字符串的index,如果参数index为空,则该字段无返回值</pre>
         
@@ -1434,12 +1454,12 @@ objectPath.set(obj, 'a.b.e', 'mo.js') => obj.a.b.e = 'mo.js'</pre>
         </p>
         
 <pre>
-@param {string} 需要处理的字符串,非字符串会先转换为字符串
-@param {number} 填充的长度,如果需要处理的字符串大于此参数,则放弃
-@param {string} 可选,填充字符,非字符串会先转换为字符串,默认为空格字符
-@param {boolean} 可选,左边还是右边,默认为false,左边
-@param {boolean} 可选,字符串的长度超过参数len是否截取,默认为false
-@returns {string} 处理后的字符串</pre>
+@param {} {string} 需要处理的字符串,非字符串会先转换为字符串
+@param {} {number} 填充的长度,如果需要处理的字符串大于此参数,则放弃
+@param {} {string} 可选,填充字符,非字符串会先转换为字符串,默认为空格字符
+@param {} {boolean} 可选,左边还是右边,默认为false,左边
+@param {} {boolean} 可选,字符串的长度超过参数len是否截取,默认为false
+@return {string} 处理后的字符串</pre>
         
         
         <pre>util.pad(str, 4, '-') => '--mo'

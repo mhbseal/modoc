@@ -1,11 +1,11 @@
 ﻿/**
+ * 一些底层的方法
+ *
  * @author hbmu
  * @date   2015/2/3
  *
  * @name   common
- * @desc   一些底层的方法
- *
- * @examples
+ * @example
  * define(['common'], function(c) { ... })
  */
 define(function () {
@@ -43,8 +43,9 @@ define(function () {
 	});
 
   /**
+   * 判断是否是非继承属性
+   *
    * @name has
-   * @desc 判断是否是非继承属性
    * @grammar c.has(obj, key)
    */
 	common.has = function(obj, key) {
@@ -52,18 +53,18 @@ define(function () {
 	};
 
 	/**
-   * @name    forIn
-	 * @desc    兼容 IE8- 下有些不枚举的属性，例如'toString',	'toLocaleString', 'valueOf', 'hasOwnProperty',	'isPrototypeOf', 'propertyIsEnumerable', 'constructor'.
-   * @grammar c.forIn(obj, iteratee[, context])
+   * 兼容 IE8- 下有些不枚举的属性，例如'toString',	'toLocaleString', 'valueOf', 'hasOwnProperty',	'isPrototypeOf', 'propertyIsEnumerable', 'constructor'
    *
-	 * @param   {object} obj
-	 * @param   {function} iteratee
+	 * @param {object} obj
+	 * @param {function} iteratee
 	 *   - param {*} value
 	 *   - param {*} key
 	 *   - param {object} forIn的第一个参数obj
-	 * @param   {object} iteratee的上下文,可选
+	 * @param {object} iteratee的上下文,可选
    *
-   * @examples
+   * @name    forIn
+   * @grammar c.forIn(obj, iteratee[, context])
+   * @example
    * c.forIn({a: 1, b: 2, toString: 3}, function(v, k) {
    *   console.log(k + ':' + v) => 依次输出: 'a: 1', 'b: 2', 'toString: 3'
    * })
@@ -80,16 +81,16 @@ define(function () {
 	}
 
 	/**
-   * @name    extend
-   * @desc    合并对象到第一个obj
-   * @grammar c.extend([isDeep,] obj1, obj2, obj3...)
+   * 合并对象到第一个obj
    *
 	 * @param   {boolean} 是否深度复制,可选
 	 * @param   {object|array} 目标对象
 	 * @param.. {object|array} 需要extend的对象,可多个参数
-	 * @returns {object|array} extend后的object
+	 * @return  {object|array} extend后的object
    *
-   * @examples
+   * @name    extend
+   * @grammar c.extend([isDeep,] obj1, obj2, obj3...)
+   * @example
    * c.extend({a: 1}, {b: 2}, {c: 3}) => {a: 1, b: 2, c: 3}
    * // 浅拷贝
    * c.extend({a: {b: 1}}, {a: {c: 2}}) => {a: {c: 2}}
@@ -152,11 +153,11 @@ define(function () {
 
 	common.extend({
     /**
-     * @name type
-     * @desc 判断对象的类型
-     * @grammar c.type(*)
+     * 判断对象的类型
      *
-     * @examples
+     * @name    type
+     * @grammar c.type(*)
+     * @example
      * c.type({a: 1}) => 'object'
      * c.type('mo.js') => 'string'
      * c.type(2) => 'number'
@@ -168,51 +169,60 @@ define(function () {
 			return type(obj);
 		},
     /**
+     * 是否是Boolean类型
+     *
      * @name isBoolean
-     * @desc 是否是Boolean类型
      * @grammar c.isBoolean(*)
      */
     /**
+     * 是否是Number类型
+     *
      * @name isNumber
-     * @desc 是否是Number类型
      * @grammar c.isNumber(*)
      */
     /**
+     * 是否是String类型
+     *
      * @name isString
-     * @desc 是否是String类型
      * @grammar c.isString(*)
      */
     /**
+     * 是否是Function类型
+     *
      * @name isFunction
-     * @desc 是否是Function类型
      * @grammar c.isFunction(*)
      */
     /**
+     * 是否是Date类型
+     *
      * @name isDate
-     * @desc 是否是Date类型
      * @grammar c.isDate(*)
      */
     /**
+     * 是否是RegExp类型
+     *
      * @name isRegExp
-     * @desc 是否是RegExp类型
      * @grammar c.isRegExp(*)
      */
     /**
+     * 是否是Object类型
+     *
      * @name isObject
-     * @desc 是否是Object类型
      * @grammar c.isObject(*)
      */
     /**
+     * 是否是数组
+     *
      * @name isArray
-     * @desc 是否是数组
      * @grammar c.isArray(*)
      */
 		isArray: nativeIsArray || function(obj) {
 			return type(obj) === 'array';
 		},
     /**
+     * 是否是类数组, 例如nodelist,arguments,具有length并且keys为0.1.2...的obj
+     *
      * @name    isArraylike
-     * @desc    是否是类数组, 例如nodelist,arguments,具有length并且keys为0.1.2...的obj
      * @grammar c.isArraylike(*)
      */
     isArraylike: function(obj) {
@@ -223,16 +233,18 @@ define(function () {
       return !!len || type === 'array' || typeof len === 'number' && len > 0 && (len - 1) in obj || len === 0;
     },
     /**
+     * 判断是否为NaN
+     *
      * @name isNaN
-     * @desc 判断是否为NaN
      * @grammar c.isNaN(*)
      */
     isNaN: function(obj) {
       return obj === undefined ? false : isNaN(obj);
     },
     /**
+     * 返回obj的长度
+     *
      * @name size
-     * @desc 返回obj的长度
      * @grammar c.size(obj)
      */
 		size: function(obj) {
@@ -240,8 +252,8 @@ define(function () {
 			return this.isArraylike(obj) ? obj.length : this.keys(obj).length;
 		},
     /**
+     * 去掉字符串前后的空
      * @name    trim
-     * @desc    去掉字符串前后的空
      * @grammar c.trim(text)
      */
     trim: function(text) {
@@ -250,8 +262,9 @@ define(function () {
       text.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
     },
     /**
+     * 获取对象的key集合
+     *
      * @name keys
-     * @desc 获取对象的key集合
      * @grammar c.keys(obj)
      */
     keys: function(obj) {
@@ -267,30 +280,32 @@ define(function () {
       return keys;
     },
     /**
+     * 当前时间戳
+     *
      * @name    now
-     * @desc    当前时间戳
      * @grammar c.now()
      */
     now: Date.now || function() {
       return +new Date();
     },
     /**
+     * 同console.log()
+     *
      * @name log
-     * @desc 同console.log()
      * @grammar c.log(*)
      */
     log: function() {
       window.console && Function.apply.call(console.log, console, arguments);
     },
     /**
-     * @name baseCreate
-     * @desc 同Objec.create(prototype)
+     * 同Objec.create(prototype)
+     *
+     * @param  {object} prototype
+     * @return {object} 原型为参数prototype的对象
+     *
+     * @name    baseCreate
      * @grammar c.baseCreate(prototype)
-     *
-     * @param {object} prototype
-     * @returns {object} 原型为参数prototype的对象
-     *
-     * @examples
+     * @example
      * c.prototype({a: function(){}, b: function() {}})
      */
     baseCreate: function(prototype) {
@@ -302,16 +317,16 @@ define(function () {
       return result;
     },
 		/**
+     * 创建一个构造函数(继承、原型方法都可选,继承可以通过新构造函数的superCtor访问父级构造函数)
+     *
+		 * @param  {function} (子级)构造函数
+		 * @param  {object} 原型的方法集，可选
+		 * @param  {function} 父级构造函数，可选
+		 * @return {function} 新的构造函数
+     *
      * @name    baseClass
-     * @desc    创建一个构造函数(继承、原型方法都可选,继承可以通过新构造函数的superCtor访问父级构造函数)
      * @grammar c.baseClass(subCtor, prototypes, superCtor)
-     *
-		 * @param   {function} (子级)构造函数
-		 * @param   {object} 原型的方法集，可选
-		 * @param   {function} 父级构造函数，可选
-		 * @returns {function} 新的构造函数
-     *
-     * @examples
+     * @example
      * c.baseClass(A, {a: function() {}, b: function(){}}, B) => A继承B,并且prototype上添加方法a和b
      * c.baseClass(A, {a: function() {}, b: function(){}}) => A的prototype上添加方法a和b
      * c.baseClass(A, B) => A继承B

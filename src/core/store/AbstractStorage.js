@@ -1,14 +1,14 @@
 /**
+ * storage的抽象类,主要存储的时候多些例如：tag、timeout、oldValue等字段，来强化storage.
+ *
  * @author hbmu
  * @date   2015/4/9
- *
- * @desc   storage的抽象类,主要存储的时候多些例如：tag、timeout、oldValue等字段，来强化storage.
  */
 define(['common'], function (c) {
 	"use strict";
 
 	/**
-	 * @desc  保存缓存的失效时间
+	 * 保存缓存的失效时间
    *
 	 * @param {storage} 缓存代理
 	 * @param {string} 保存所有缓存的失效时间map的缓存的key
@@ -40,7 +40,7 @@ define(['common'], function (c) {
 	}
 
 	/**
-	 * @desc  在设置storage时超出容量时，删除离过期时间最近的缓存
+	 * 在设置storage时超出容量时，删除离过期时间最近的缓存
    *
 	 * @param {storage} 缓存代理
 	 * @param {string} 保存所有缓存的失效时间map的缓存的key
@@ -74,13 +74,13 @@ define(['common'], function (c) {
 	}
 
 	/**
-	 * @desc    构造最终存入对应key的value值
+	 * 构造最终存入对应key的value值
    *
-	 * @param   {string} value
-	 * @param   {string} tag
-	 * @param   {string} timeout
-	 * @param   {string} 设置的是否是回滚数据
-	 * @returns {object} 包含2个param的对象
+	 * @param  {string} value
+	 * @param  {string} tag
+	 * @param  {string} timeout
+	 * @param  {string} 设置的是否是回滚数据
+	 * @return {object} 包含2个param的对象
 	 */
 	function buildStorageObj(value, oldValue, tag, timeout) {
 		var result = {
@@ -100,14 +100,14 @@ define(['common'], function (c) {
 			}, options)
 		}, {
 			/**
-			 * @desc    设置数据
+			 * 设置数据
        *
-			 * @param   {string} key
-			 * @param   {*} value
-			 * @param   {string} 可选,tag标识,如果传递tag,get时会比较tag标识,不一致返回null
-			 * @param   {number} 可选,失效时间,默认 now+1天
-			 * @param   {string} 可选,默认false,是否设置回滚数据
-			 * @returns {boolean} 成功true,失败false
+			 * @param  {string} key
+			 * @param  {*} value
+			 * @param  {string} 可选,tag标识,如果传递tag,get时会比较tag标识,不一致返回null
+			 * @param  {number} 可选,失效时间,默认 now+1天
+			 * @param  {string} 可选,默认false,是否设置回滚数据
+			 * @return {boolean} 成功true,失败false
 			 */
 			set: function (key, value, tag, timeout, isOld) {
 				// 参数校正
@@ -140,12 +140,12 @@ define(['common'], function (c) {
 				}
 			},
 			/**
-			 * @desc    读取数据
+			 * 读取数据
        *
-			 * @param   {string} key
-			 * @param   {string} tag标识,如果传递tag,get时会比较tag标识,不一致返回null
-			 * @param   {boolean} 可选,默认false,是否读取回滚数据
-			 * @returns {*} 读取保存的数据
+			 * @param  {string} key
+			 * @param  {string} tag标识,如果传递tag,get时会比较tag标识,不一致返回null
+			 * @param  {boolean} 可选,默认false,是否读取回滚数据
+			 * @return {*} 读取保存的数据
 			 */
 			get: function (key, tag, isOld) {
 				var
@@ -164,20 +164,20 @@ define(['common'], function (c) {
 				return value;
 			},
 			/**
-			 * @desc    返回key的tag
+			 * 返回key的tag
        *
-			 * @param   {string} key
-			 * @returns {string} tag
+			 * @param  {string} key
+			 * @return {string} tag
 			 */
 			getTag: function (key) {
 				var obj = this.options.storage.getItem(key);
 				return obj ? JSON.parse(obj).tag : null;
 			},
 			/**
-			 * @desc  设置key的失效时间
+			 * 设置key的失效时间
        *
-			 * @param   {string} key
-			 * @returns {boolean} 成功true,失败false
+			 * @param  {string} key
+			 * @return {boolean} 成功true,失败false
 			 */
 			setExpireTime: function (key, timeout) {
 				var obj = this.options.storage.getItem(key);
@@ -189,17 +189,17 @@ define(['common'], function (c) {
 				return false;
 			},
 			/**
-			 * @desc  读取key的失效时间
+			 * 读取key的失效时间
        *
-			 * @param   {string} key
-			 * @returns {number} timeout
+			 * @param  {string} key
+			 * @return {number} timeout
 			 */
 			getExpireTime: function (key) {
 				var obj = this.options.storage.getItem(key);
 				return obj ? JSON.parse(obj).timeout : null;
 			},
 			/**
-			 * @desc  清除指定key
+			 * 清除指定key
        *
 			 * @param {string} key
 			 */
@@ -207,13 +207,13 @@ define(['common'], function (c) {
 				return this.options.storage.removeItem(key);
 			},
 			/**
-			 * @desc 清空所有storage内容
+			 * 清空所有storage内容
 			 */
 			clear: function () {
 				return this.options.storage.clear();
 			},
 			/**
-			 * @desc 垃圾回收,清除掉过期数据和空数据(只处理通过AbstracStorage存储过的)
+			 * 垃圾回收,清除掉过期数据和空数据(只处理通过AbstracStorage存储过的)
 			 */
 			gc: function () {
 				var

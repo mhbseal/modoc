@@ -1,11 +1,11 @@
 ﻿/**
+ * 读取或设置object path下的value
+ *
  * @author hbmu
  * @date   2014/4/13
  *
  * @name   objectPath
- * @desc   读取或设置object path下的value
- *
- * @examples
+ * @example
  * define(['objectPath'], function(objectPath) {
  *   var obj = {
  *      a: {
@@ -21,16 +21,16 @@ define(function () {
 
 	var objectPath = {
 		/**
+     * 设置object path下的value
+     *
+		 * @param  {object} obj
+		 * @param  {string} path
+		 * @param  {*} value
+		 * @return {boolean} 成功true,失败false
+     *
      * @name    set
-		 * @desc    设置object path下的value
      * @grammar objectPath.set(obj, path, value)
-     *
-		 * @param   {object} obj
-		 * @param   {string} path
-		 * @param   {*} value
-		 * @returns {boolean} 成功true,失败false
-     *
-     * @examples
+     * @example
      * objectPath.set(obj, 'a.d', 'mo.js') => obj.a.d = 'mo.js'
      * objectPath.set(obj, 'a.b.e', 'mo.js') => obj.a.b.e = 'mo.js'
 		 */
@@ -59,15 +59,15 @@ define(function () {
 			return true;
 		},
 		/**
+     * 读取object path下的value
+     *
+		 * @param  {object} obj
+		 * @param  {string} path
+		 * @return {*} value
+     *
      * @name    get
-		 * @desc    读取object path下的value
      * @grammar objectPath.set(obj, path)
-     *
-		 * @param   {object} obj
-		 * @param   {string} path
-		 * @returns {*} value
-     *
-     * @examples
+     * @example
      * objectPath.get(obj, 'a.b.e') => 'mo.js'
 		 */
 		get: function (obj, path) {

@@ -1,20 +1,21 @@
 /**
+ * store的抽象类,针对storage中的key,一般不使用该类,常用他的子类LocalStore(options.proxy = window.localStorage)、SessionStore(options.proxy = window.sessionStorage)
+ *
  * @author hbmu
  * @date   2015/4/10
  *
  * @name   AbstractStore
- * @desc   store的抽象类,针对storage中的key,一般不使用该类,常用他的子类LocalStore(options.proxy = window.localStorage)、SessionStore(options.proxy = window.sessionStorage)
- *
- * @examples
+ * @example
  * define(['AbstractStore'], function(AbstractStore) { ... })
  */
 define(['common', 'objectPath'], function (c, objectPath) {
 	"use strict";
 
-	/***
+	/**
 	 * 根据liftTime 计算要增加的毫秒数
+   *
 	 * @param   {string} liftTime 单位D,H,M,S. eg. '24H'
-	 * @returns {number} 根据liftTime计算要增加的毫秒数
+	 * @return {number} 根据liftTime计算要增加的毫秒数
 	 */
 	function getLifeTime(lifeTime) {
 		var
@@ -42,16 +43,17 @@ define(['common', 'objectPath'], function (c, objectPath) {
 	}
 
   /**
-   * @name    AbstractStore
-   * @desc    构造函数
-   * @grammar new AbstractStore(options)
+   * 构造函数
    *
-   * @param   {object} options
+   * @param {object} options
    *   - proxy           {storage} window.localStorage/window.sessionStorage
    *   - key             {string} key
    *   - lifetime        {string} 生命周期,默认'1H' 单位D,H,M,S. eg. '24H'
    *   - rollbackEnabled {boolean} 是否回滚
-   * @examples
+   *
+   * @name    AbstractStore
+   * @grammar new AbstractStore(options)
+   * @example
    * var store = new AbstractStore({
    *   proxy: window.localStorage,
    *   key: 'USER'
@@ -71,14 +73,15 @@ define(['common', 'objectPath'], function (c, objectPath) {
       })
 		}, {
 			/**
-       * @name    set
-			 * @desc    设置this.key下的value
-       * @grammar store.set(value[, tag][, isOld])
+       * 设置this.key下的value
        *
-			 * @param   {*} value
-			 * @param   {string} 可选,tag标识,如果传递tag,get时会比较tag标识,不一致返回null
-			 * @param   {string} 可选,默认false,是否设置回滚数据
-			 * @returns {boolean} 成功true,失败false
+			 * @param  {*} value
+			 * @param  {string} 可选,tag标识,如果传递tag,get时会比较tag标识,不一致返回null
+			 * @param  {string} 可选,默认false,是否设置回滚数据
+			 * @return {boolean} 成功true,失败false
+       *
+       * @name    set
+       * @grammar store.set(value[, tag][, isOld])
 			 */
 			set: function (value, tag, isOld) {
 				if (!this.options.rollbackEnabled && isOld) throw 'param rollbackEnabled is false'; // 如果不允许roolback,则不能设置回滚数据
@@ -86,15 +89,16 @@ define(['common', 'objectPath'], function (c, objectPath) {
 				return this.options.proxy.set(this.options.key, value, tag, timeout, isOld);
 			},
 			/**
-       * @name    setAttr
-			 * @desc    设置this.key下的value中name的value
-       * @grammar store.setAttr(name, value[, tag][, isOld])
+       * 设置this.key下的value中name的value
        *
-			 * @param   {String} name 支持通过路径的方式，如'a.b.c'
-			 * @param   {*} value
-			 * @param   {string} 可选,tag标识,如果传递tag,get时会比较tag标识,不一致返回null
-			 * @param   {string} 可选,默认false,是否设置回滚数据
-			 * @returns {boolean} 成功true,失败false
+			 * @param  {String} name 支持通过路径的方式，如'a.b.c'
+			 * @param  {*} value
+			 * @param  {string} 可选,tag标识,如果传递tag,get时会比较tag标识,不一致返回null
+			 * @param  {string} 可选,默认false,是否设置回滚数据
+			 * @return {boolean} 成功true,失败false
+       *
+       * @name    setAttr
+       * @grammar store.setAttr(name, value[, tag][, isOld])
 			 */
 			setAttr: function (name, value, tag, isOld) {
 				if (!this.options.rollbackEnabled && isOld) throw 'param rollbackEnabled is false'; // 如果不允许roolback,则不能设置回滚数据
@@ -116,69 +120,76 @@ define(['common', 'objectPath'], function (c, objectPath) {
 				return this.set(objValue, tag, isOld);
 			},
 			/**
-       * @name    get
-			 * @desc    读取this.key下的value
-       * @grammar store.get([tag][, isOld])
+       * 读取this.key下的value
        *
-			 * @param   {string} 可选,tag标识,如果传递tag,get时会比较tag标识,不一致返回null
-			 * @param   {string} 可选,默认false,是否设置回滚数据
-			 * @returns {*} value
+			 * @param  {string} 可选,tag标识,如果传递tag,get时会比较tag标识,不一致返回null
+			 * @param  {string} 可选,默认false,是否设置回滚数据
+			 * @return {*} value
+       *
+       * @name    get
+       * @grammar store.get([tag][, isOld])
 			 */
 			get: function (tag, isOld) {
 				return this.options.proxy.get(this.options.key, tag, isOld);
 			},
 			/**
-       * @name    getAttr
-			 * @desc    读取this.key下的value中name的value
-       * @grammar store.getAttr(name[, tag][, isOld])
+       * 读取this.key下的value中name的value
        *
-			 * @param   {String} name 支持通过路径的方式，如'a.b.c'
-			 * @param   {string} 可选,tag标识,如果传递tag,get时会比较tag标识,不一致返回null
-			 * @param   {string} 可选,默认false,是否设置回滚数据
-			 * @returns {*} value
+			 * @param  {String} name 支持通过路径的方式，如'a.b.c'
+			 * @param  {string} 可选,tag标识,如果传递tag,get时会比较tag标识,不一致返回null
+			 * @param  {string} 可选,默认false,是否设置回滚数据
+			 * @return {*} value
+       *
+       * @name    getAttr
+       * @grammar store.getAttr(name[, tag][, isOld])
 			 */
 			getAttr: function (name, tag, isOld) {
 				return objectPath.get(this.get(tag, isOld), name);
 			},
 			/**
-       * @name getTag
-			 * @desc 获取tag
+       * 获取tag
+       *
+       * @name    getTag
        * @grammar store.getTag()
 			 */
 			getTag: function () {
 				return this.options.proxy.getTag(this.options.key);
 			},
 			/**
-       * @name remove
-			 * @desc 移除存储对象
+       * 移除存储对象
+       *
+       * @name    remove
        * @grammar store.remove()
 			 */
 			remove: function () {
 				return this.options.proxy.remove(this.options.key);
 			},
 			/**
-       * @name setExpireTime
-			 * @desc 设置失效时间
+       * 设置失效时间
+       *
+       * @name    setExpireTime
        * @grammar store.setExpireTime()
 			 */
 			setExpireTime: function () {
 				return this.options.proxy.setExpireTime(this.options.key);
 			},
 			/**
-       * @name getExpireTime
-			 * @desc 返回失效时间
+       * 返回失效时间
+       *
+       * @name    getExpireTime
        * @grammar store.getExpireTime()
 			 */
 			getExpireTime: function () {
 				return this.options.proxy.getExpireTime(this.options.key);
 			},
 			/**
-       * @name    rollback
-			 * @desc    回滚至上个版本
-       * @grammar store.rollback([isClearOld])
+       * 回滚至上个版本
        *
-			 * @param   {string} 可选,默认false,回滚后是否清除回滚数据
-			 * @returns {boolean} 成功true,失败false
+			 * @param  {string} 可选,默认false,回滚后是否清除回滚数据
+			 * @return {boolean} 成功true,失败false
+       *
+       * @name    rollback
+       * @grammar store.rollback([isClearOld])
 			 */
 			rollback: function (isClearOld) {
 				var tag = this.getTag();

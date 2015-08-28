@@ -1,10 +1,10 @@
 # modoc
 ### An API documentation generator
 
-##### Repository
+##### Install
 
     git clone https://github.com/mhbseal/modoc.git
-    cd modoc & npm install
+    cd modoc && npm install
 
 ##### Run
 
@@ -20,59 +20,57 @@ this repository contains mojs example(http://mhbseal.com/api/mojs.html), so we c
     modoc.js --- main file
     template.html --- document template
 
-##### Use steps
+##### Usage
 
 1. edit config.json, configuration document information.
 2. enter dest/images,replace logo.png.
-3. enter src,clear this directory,copy your files to the current directory.
+3. enter src,clear this directory,copy your files to the directory.
 4. run modoc, successfully, generate a doc({config.name}.html) in dest.
-
-##### Comment grammar
-
-    /**
-     * @name --- file name or method name or property name
-     * @desc --- description
-     * @grammar
-     *
-     * @param
-     * @returns
-     *
-     * @examples
-     * @more
-     */
   
 ##### Examples
   
-    use
+general document comment
+
     /**
-     * @name file name or method name or property name
-     * @desc description
+     * description
      *
-     * @param {string} string type parameter
-     * @param {object} object type parameter
-     *   - param {number} child parameter
-     *   - param {string} child parameter
-     * @param {function} function type parameter
-     *   - param {number} function parameter
-     *   - param {string} function parameter
-     * @returns {*}
+     * @param {string} 1
+     * @param {object} 2
+     *   - param {number} 3
+     *   - param {string} 4
+     * @param {function} 5
+     *   - param {number} 6
+     *   - param {function} 7
+     *     - param 8
+     * @return {object} 9
+     *   - a {string} 10
+     *   - b {number} 11
+     */
+
+after add generator
+    
+    /**
+     * description
+     *
+     * @param {string} 1
+     * @param {object} 2
+     *   - param {number} 3
+     *   - param {string} 4
+     * @param {function} 5
+     *   - param {number} 6
+     *   - param {function} 7
+     *     - param 8
+     * @return {object} 9
+     *   - a {string} 10
+     *   - b {number} 11
      * 
-     * @examples
-     * var num = 'modoc';
+     * @name file name or method name or property name(required)
+     * @example
+     * var str = 'modoc';
      * num.toUpperCase();
      * ...
      * @more
      * this is more information,
      * modoc is very good.
-     * ...
-     */
-  
-    don't use
-    /***
-     * ...
-     */
-  
-    or
-    /*
      * ...
      */

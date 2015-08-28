@@ -1,11 +1,11 @@
 ﻿/**
+ * 操作cookie的方法
+ *
  * @author hbmu
  * @date   2014/09/12
  *
  * @name   Cookie
- * @desc   操作cookie的方法
- *
- * @examples
+ * @example
  * define(['Cookie'], function(Cookie) { ... })
  */
 define(['common', 'es5'], function(c, es5) {
@@ -25,15 +25,15 @@ define(['common', 'es5'], function(c, es5) {
 	};
 
 	/**
-   * @name Cookie
-	 * @desc 构造函数
-   * @grammar new Cookie(options)
+   * 构造函数
    *
 	 * @param {object} options
 	 *   - isRaw {boolean} 是否原生字符（不转码）, 默认为false
 	 *   - isJson {boolean} 是否str->json, 默认为false
    *
-   * @examples
+   * @name Cookie
+   * @grammar new Cookie(options)
+   * @example
    * var cookie = new Cookie();
 	 */
 	function Cookie(options) {
@@ -44,9 +44,7 @@ define(['common', 'es5'], function(c, es5) {
 	};
 
   /**
-   * @name  set
-   * @desc  设置cookie
-   * @grammar cookie.set(name, value[, options])
+   * 设置cookie
    *
    * @param {string} name
    * @param {*} value
@@ -56,7 +54,9 @@ define(['common', 'es5'], function(c, es5) {
    *   - domain  {string} 域,domain只能设置当前domain的子domain, 默认为当前domain
    *   - secure  {boolean} 安全策略,只有https下能设置 ture or false, 默认为false
    *
-   * @examples
+   * @name  set
+   * @grammar cookie.set(name, value[, options])
+   * @example
    * cookie.set('user', 'mo')
    */
   Cookie.prototype.set = function(name, value, options) {
@@ -76,14 +76,14 @@ define(['common', 'es5'], function(c, es5) {
   };
 
 	/**
+   * 读取cookie
+   *
+	 * @param  {string} cookie的name
+	 * @return {*} cookie的value
+   *
    * @name    get
-	 * @desc    读取cookie
    * @grammar cookie.get(name)
-   *
-	 * @param   {string} cookie的name
-	 * @returns {*} cookie的value
-   *
-   * @examples
+   * @example
    * cookie.get('user')
 	 */
 	Cookie.prototype.get = function(name) {
@@ -107,13 +107,13 @@ define(['common', 'es5'], function(c, es5) {
 	};
 
 	/**
-   * @name  remove
-   * @desc  删除cookie
-   * @grammar cookie.remove(name)
+   * 删除cookie
    *
 	 * @param {string} cookie的name
    *
-   * @examples
+   * @name    remove
+   * @grammar cookie.remove(name)
+   * @example
    * cookie.remove('user')
 	 */
 	Cookie.prototype.remove = function(name) {

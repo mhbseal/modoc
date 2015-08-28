@@ -1,10 +1,7 @@
 {
   "name": "mojs",
   "version": "0.1.0",
-  "repository": {
-    "name": "gitbub repository",
-    "url": "https://github.com/mhbseal/mojs"
-  },
-  "introduction": "A js library depends on requirejs",
+  "repositoryUrl": "https://github.com/mhbseal/mojs",
+  "introduction": "mojs",
   "skip": ["libs", "core/store/AbstractStorage.js"]
 }

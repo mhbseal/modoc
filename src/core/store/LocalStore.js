@@ -1,10 +1,11 @@
 /**
+ * AbstractStore的子类
+ *
  * @author hbmu
  * @date   2015/4/17
  *
  * @name   LocalStore
- * @desc   AbstractStore的子类
- * @examples
+ * @example
  * var store = new AbstractStore({
  *   proxy: window.localStore, // 默认值
  *   key: 'USER'

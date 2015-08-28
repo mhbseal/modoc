@@ -1,13 +1,11 @@
 ﻿/**
+ * 解析url
  * @author hbmu
  * @date   2014/11/7
  *
  * @name   ParseUrl
- * @desc   解析url
- *
- * @examples
+ * @example
  * define(['ParseUrl'], function(ParseUrl) { ... })
- *
  * @more   url注解
  * =====================================================================
  *
@@ -37,13 +35,13 @@ define(function () {
 
 
   /**
+   * 构造函数
+   *
+   * @param {string} 默认为location.href
+   *
    * @name    ParseUrl
-   * @desc    构造函数
    * @grammar new ParseUrl(url)
-   *
-   * @param   {string} 默认为location.href
-   *
-   * @examples
+   * @example
    * var parseUrl = new ParseUrl('http://username:password&#64;www.example.com:80/path/file.name?query=string#anchor');
    */
 	function ParseUrl(url) {
@@ -64,15 +62,15 @@ define(function () {
 	};
 
 	/**
-   * @name    getAttr
-	 * @desc    读取url中的attr,name为空,则返回所有attr.
-   * @grammar parseUrl.getAttr([name])
+   * 读取url中的attr,name为空,则返回所有attr
    *
-	 * @param   {string} name,可选 范围"source", "protocol", "authority", "userInfo", "user",
+	 * @param  {string} name,可选 范围"source", "protocol", "authority", "userInfo", "user",
    * "password", "host", "port", "relative", "path", "directory", "file", "query", "anchor"
-	 * @returns {string} value
+	 * @return {string} value
    *
-   * @examples
+   * @name    getAttr
+   * @grammar parseUrl.getAttr([name])
+   * @example
    * parseUrl.getAttr('port') => '80'
 	 */
 	ParseUrl.prototype.getAttr = function(name) {
@@ -81,14 +79,14 @@ define(function () {
 	};
 
 	/**
+   * 读取url中的param,name为空,则返回所有param
+   *
+	 * @param  {string} name
+	 * @return {string} value
+   *
    * @name    getParam
-	 * @desc    读取url中的param,name为空,则返回所有param.
    * @grammar parseUrl.getParam([name])
-   *
-	 * @param   {string} name
-	 * @returns {string} value
-   *
-   * @examples
+   * @example
    * parseUrl.getParam('query') => 'string'
 	 */
 	ParseUrl.prototype.getParam = function(name) {

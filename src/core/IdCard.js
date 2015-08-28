@@ -1,14 +1,14 @@
 ﻿/**
+ * 身份证的校验以及从从身份证号码中获取一些信息，例如出生日期，性别
+ *
  * @author hbmu
  * @date   2014/10/21
  *
  * @name   IdCard
- * @desc   身份证的校验以及从从身份证号码中获取一些信息，例如出生日期，性别
- *
- * @examples
+ * @example
  * define(['IdCard'], function(IdCard) { ... })
  *
- * @other  身份证规则
+ * @more  身份证规则
  * =====================================================================
  * 身份证15位编码规则 -- dddddd yymmdd xx p
  * dddddd : 地区码
@@ -35,15 +35,15 @@ define(['common'], function (c) {
 		CODE = [1, 0, 'X', 9, 8, 7, 6, 5, 4, 3, 2];
 
 	/**
-   * @name    IdCard
-   * @desc    构造函数
-	 * @grammar new IdCard(num, options)
+   * 构造函数
    *
-	 * @param   {string} 身份证号,这里必须是string格式,因为身份证号超出了js的整数精度范围
-	 * @param   {object} options,可选
+	 * @param {string} 身份证号,这里必须是string格式,因为身份证号超出了js的整数精度范围
+	 * @param {object} options,可选
 	 *   - requireAreaInfo {boolean} 是否需要校验、获取省市区信息
    *
-   * @examples
+   * @name    IdCard
+   * @grammar new IdCard(num, options)
+   * @example
    * var idCard = new IdCard('610125198711037137', {requireAreaInfo: true});
    * // 要校验省市区或者获取省市区信息,需要异步引入一个较大的地区信息data(100K+),没有必要,建议不要设置requireAreaInfo!
 	 */
@@ -55,12 +55,12 @@ define(['common'], function (c) {
 	}
 
 	/**
-   * @name checkCode
-   * @desc 验证校验位,针对18位
-	 *
-	 * @returns {boolean}
+   * 验证校验位,针对18位
    *
-   * @examples
+	 * @return {boolean}
+   *
+   * @name checkCode
+   * @example
    * idCard.checkCode() => true
 	 */
 	IdCard.prototype.checkCode = function() {
@@ -79,12 +79,12 @@ define(['common'], function (c) {
 		return true;
 	};
 	/**
+   * 验证出生日期
+   *
+	 * @return {boolean}
+   *
    * @name checkBirth
-   * @desc 验证出生日期
-   *
-	 * @returns {boolean}
-   *
-   * @examples
+   * @example
    * idCard.checkBirth() => true
 	 */
 	IdCard.prototype.checkBirth = function() {
@@ -99,15 +99,15 @@ define(['common'], function (c) {
 		return true;
 	};
 	/**
-   * @name getBirth
-   * @desc 获取出生日期
+   * 获取出生日期
    *
-	 * @returns {object} 返回对象
+	 * @return {object} 返回对象
 	 *   - year  {number}
 	 *   - month {number}
 	 *   - day   {number}
    *
-   * @examples
+   * @name getBirth
+   * @example
    * idCard.getBirth() => {year: 1987, month: 11, day: 13}
 	 */
 	IdCard.prototype.getBirth = function() {
@@ -120,12 +120,12 @@ define(['common'], function (c) {
 		};
 	};
 	/**
+   * 获取性别
+   *
+	 * @return {string}
+   *
    * @name getSex
-   * @desc 获取性别
-   *
-	 * @returns {string}
-   *
-   * @examples
+   * @example
    * idCard.getSex() => '男'
 	 */
 	IdCard.prototype.getSex = function() {

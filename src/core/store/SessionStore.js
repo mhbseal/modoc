@@ -1,10 +1,11 @@
 /**
+ * AbstractStore的子类
+ *
  * @author hbmu
  * @date   2015/4/17
  *
  * @name   SessionStore
- * @desc   AbstractStore的子类
- * @examples
+ * @example
  * var store = new AbstractStore({
  *   proxy: window.sessionStore, // 默认值
  *   key: 'USER'

@@ -1,11 +1,11 @@
 ﻿/**
+ * es5 polyfill or shim. 其中each,map,filter,some,every可以应用到类数组,对象. indexOf,lastIndexOf,reduce,reduceRight可以应用到类数组
+ *
  * @author hbmu
  * @date   2015/2/3
  *
  * @name   es5
- * @desc   es5 polyfill or shim. 其中each,map,filter,some,every可以应用到类数组,对象. indexOf,lastIndexOf,reduce,reduceRight可以应用到类数组.
- *
- * @examples
+ * @example
  * define(['es5'], function(date) { ... })
  */
 define(['common'], function (c) {
@@ -44,16 +44,17 @@ define(['common'], function (c) {
 
 	es5 = {
 		/**
-     * @name    each
-		 * @desc    遍历类数组或者对象,如果想终止循环return false即可
-     * @grammar es5.each(obj, iteratee[, context])
+     * 遍历类数组或者对象,如果想终止循环return false即可
      *
-		 * @param   {arraylike|object} 类数组或者对象
-		 * @param   {function} 迭代函数
+		 * @param {arraylike|object} 类数组或者对象
+		 * @param {function} 迭代函数
 		 *   - param {*} value
 		 *   - param {*} index|key
 		 *   - param {array|object} each的第一个参数
-		 * @param   {object} iteratee的上下文,可选
+		 * @param {object} iteratee的上下文,可选
+     *
+     * @name    each
+     * @grammar es5.each(obj, iteratee[, context])
 		 */
 		each: function(obj, cb, context) {
 			var
@@ -69,17 +70,18 @@ define(['common'], function (c) {
 			}
 		},
 		/**
-     * @name    map
-		 * @desc    遍历类数组或者对象,返回一个新数组(obj执行iteratee后的返回值的集合)
-     * @grammar es5.map(obj, iteratee[, context])
+     * 遍历类数组或者对象,返回一个新数组(obj执行iteratee后的返回值的集合)
      *
-		 * @param   {arraylike|object} 类数组或者对象
-		 * @param   {function} 迭代函数
+		 * @param  {arraylike|object} 类数组或者对象
+		 * @param  {function} 迭代函数
 		 *   - param {*} value
 		 *   - param {*} index/key
 		 *   - param {array|object} map的第一个参数
-		 * @param   {object} iteratee的上下文,可选
-		 * @returns {array} 结果
+		 * @param  {object} iteratee的上下文,可选
+		 * @return {array} 结果
+     *
+     * @name    map
+     * @grammar es5.map(obj, iteratee[, context])
 		 */
 		map: function(obj, cb, context) {
 			var results = [];
@@ -91,8 +93,9 @@ define(['common'], function (c) {
 			return results;
 		},
 		/**
+     * 遍历类数组或者对象,返回一个新数组(obj执行iteratee后返回值为真的obj的元素的集合),其他同map
+     *
      * @name filter
-		 * @desc 遍历类数组或者对象,返回一个新数组(obj执行iteratee后返回值为真的obj的元素的集合),其他同map
 		 */
 		filter: function(obj, cb, context) {
 			var results = [];
@@ -104,8 +107,9 @@ define(['common'], function (c) {
 			return results;
 		},
 		/**
+     * 遍历类数组或者对象,obj执行iteratee后返回值如果有一个为真,则返回true,否则返回false,其他同map
+     *
      * @name some
-		 * @desc 遍历类数组或者对象,obj执行iteratee后返回值如果有一个为真,则返回true,否则返回false,其他同map
 		 */
 		some: function(obj, cb, context) {
 			var result = false;
@@ -120,8 +124,9 @@ define(['common'], function (c) {
 			return result;
 		},
 		/**
-		 * @name every
-     * @desc 遍历类数组或者对象,obj执行iteratee后返回值如果全为真,则返回true,否则返回false,其他同map
+     * 遍历类数组或者对象,obj执行iteratee后返回值如果全为真,则返回true,否则返回false,其他同map
+     *
+     * @name every
 		 */
 		every: function(obj, cb, context) {
 			var result = true;
@@ -135,14 +140,15 @@ define(['common'], function (c) {
 			return result;
 		},
 		/**
-		 * @name    indexOf
-     * @desc    返回item在arraylike中的索引值(从0开始找),如果item不存在arraylike中就返回-1,原生不支持NaN
-     * @grammar es5.indexOf(array, item[, from])
+     * 返回item在arraylike中的索引值(从0开始找),如果item不存在arraylike中就返回-1,原生不支持NaN
      *
-		 * @param   {arraylike} 需要查找的类数组
-		 * @param   {*} 需要查找的元素
-		 * @param   {number} 开始索引,可选
-		 * @returns {number} 查找到元素的索引值
+		 * @param  {arraylike} 需要查找的类数组
+		 * @param  {*} 需要查找的元素
+		 * @param  {number} 开始索引,可选
+		 * @return {number} 查找到元素的索引值
+     *
+     * @name    indexOf
+     * @grammar es5.indexOf(array, item[, from])
 		 */
 		indexOf: function(array, item, from) {
 			var
@@ -162,8 +168,9 @@ define(['common'], function (c) {
 			return -1;
 		},
 		/**
-		 * @name    lastIndexOf
-     * @desc    同indexOf,区别是从arraylike的末尾开始(从右到左)
+     * 同indexOf,区别是从arraylike的末尾开始(从右到左)
+     *
+		 * @name lastIndexOf
 		 */
 		lastIndexOf: function(array, item, from) {
 			var index = array ? array.length : 0;
@@ -181,14 +188,15 @@ define(['common'], function (c) {
 			return -1;
 		},
 		/**
-		 * @name    bind
-     * @desc    函数绑定
-     * @grammar es5.bind(func, context[, arg1] [, arg2...])
+     * 函数绑定
      *
 		 * @param   {function} 需要绑定上下文或者是添加参数的函数
 		 * @param   {object} func的上下文
 		 * @param.. {*} 需要添加的n个参数
-		 * @returns {function} 绑定上下文或者是添加参数后函数
+		 * @return  {function} 绑定上下文或者是添加参数后函数
+     *
+     * @name    bind
+     * @grammar es5.bind(func, context[, arg1] [, arg2...])
 		 */
 		bind: function(func, context) {
 			if (nativeBind) return nativeBind.apply(func, slice.call(arguments, 1));
@@ -210,9 +218,7 @@ define(['common'], function (c) {
 			return bound;
 		},
 		/**
-		 * @name    reduce
-     * @desc    接收一个函数作为累加器,类数组中的每个值从左到右开始缩减，最终为一个值
-     * @grammar es5.reduce(arraylike, iteratee[, memo][, context])
+     * 接收一个函数作为累加器,类数组中的每个值从左到右开始缩减，最终为一个值
      *
      * @param {arraylike} 类数组
      * @param {function} 迭代函数
@@ -222,11 +228,15 @@ define(['common'], function (c) {
      *   - param {array|object} reduce的第一个参数
      * @param {*} 可选,作为第一次调用iteratee的第一个参数,如果不存在,则把第一次要iteratee的value复制给memo,并且跳过index这次iteratee
      * @param {object} iteratee的上下文,可选
+     *
+     * @name    reduce
+     * @grammar es5.reduce(arraylike, iteratee[, memo][, context])
 		 */
 		reduce: createReduce(1),
 		/**
-		 * @name    reduceRight
-     * @desc    同reduce,区别是从类数组的末尾开始(从右到左)
+     * 同reduce,区别是从类数组的末尾开始(从右到左)
+     *
+		 * @name reduceRight
 		 */
 		reduceRight: createReduce(-1)
 	};

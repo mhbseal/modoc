@@ -1,11 +1,11 @@
 /**
+ * 日期格式化、计算
+ *
  * @author hbmu
  * @date   2015/1/29
  *
  * @name   date
- * @desc   日期格式化、计算
- *
- * @examples
+ * @example
  * define(['date'], function(date) {
  *   var birthday = new Date(); // 默认值,当前客户端时间Date实例
  *   var birthday = '/Date(1395331200000+0800)/'; // 非JS格式的时间戳,例如.NET
@@ -178,15 +178,15 @@ define(['util'], function (util) {
 
 	var date = {
 		/**
+     * 格式化日期
+     *
+		 * @param  {number/string/date} 需要格式化的date
+		 * @param  {string} token字符串
+		 * @return {string} 格式化后的字符串
+     *
      * @name    format
-     * @desc    格式化日期
      * @grammar date.format([date,] format)
-     *
-		 * @param   {number/string/date} 需要格式化的date
-		 * @param   {string} token字符串
-		 * @returns {string} 格式化后的字符串
-     *
-     * @examples
+     * @example
      * date.format('YYYY-MM-DD HH:mm:ss') => '1987-11-03 20:30:40'
      * date.format(birthday, 'YYYY-MM-DD HH:mm:ss') => '1987-11-03 20:30:40'
      * date.format(birthday, 'YY年M月D日 h时m分s秒 S毫秒 ddd') => '87年12月3日 8时30分40秒 500毫秒 周四'
@@ -244,16 +244,16 @@ define(['util'], function (util) {
 	};
 
 	/**
+   * 日期加减计算
+   *
+   * @param  {number|string|date} 需要格式化的date,不传默认为当前时间
+	 * @param  {string} 单位['FullYear', 'Month', 'Date', 'Hours', 'Minutes', 'Seconds', 'Milliseconds', 'Time']
+	 * @param  {number} n单位
+	 * @return {Date} 计算后的结果
+   *
    * @name    add/sub
-   * @desc    日期加减计算
    * @grammar date.add([date,] name, number)/date.sub([date,] name, number)
-   *
-   * @param   {number|string|date} 需要格式化的date,不传默认为当前时间
-	 * @param   {string} 单位['FullYear', 'Month', 'Date', 'Hours', 'Minutes', 'Seconds', 'Milliseconds', 'Time']
-	 * @param   {number} n单位
-	 * @returns {Date} 计算后的结果
-   *
-   * @examples
+   * @example
    * date.add('Minutes', 5) => Thu Dec 03 1987 20:35:40 GMT+0800 (中国标准时间)
    * date.add(birthday, 'Time', 5000) => Thu Dec 03 1987 20:35:45 GMT+0800 (中国标准时间)
    * date.sub(birthday, 'Minutes', 5) => Thu Dec 03 1987 20:30:45 GMT+0800 (中国标准时间)
