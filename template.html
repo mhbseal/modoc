@@ -190,7 +190,7 @@
     <a class="toc_title" href="#<%= k %>"><%= k %></a>
     <ul class="toc_section">
     <% _.each(v.items, function(item, i) { %>
-      <li>- <a href="#<%= k %>_<%= item.infos.name %>"><%= item.infos.name %></a></li>
+      <li>- <a href="#<%= k %>_<%= item.name %>"><%= item.name %></a></li>
     <% }) %>
     </ul>
   <% }) %>
@@ -204,24 +204,24 @@
     <% _.each(data, function(v, k) { %>
       <h2 id="<%= k %>"><%= k %></h2>
       <p><%= v.desc %></p>
-      <% if (v.examples) { %>
-      <pre><%= v.examples %></pre>
+      <% if (v.example) { %>
+      <pre><%= v.example %></pre>
       <% } %>
       <% if (v.more) { %>
       <pre><%= v.more %></pre>
       <% } %>
       <% _.each(v.items, function(item, i) { %>
-        <p id="<%= k %>_<%= item.infos.name %>">
-          <b class="header"><%= item.infos.name %></b><code><%= item.infos.grammar %></code>
+        <p id="<%= k %>_<%= item.name %>">
+          <b class="header"><%= item.name %></b><code><%= item.grammar %></code>
           <br>
-          <%= item.infos.desc %>
+          <%= item.desc %>
         </p>
         <% if (item.params && item.params.length) { %>
 <pre><% _.each(item.params, function(vv, ii) { %>
 @<%= vv[0] %> {<%= vv[1] %>} <%= vv[2] %><% }) %></pre>
         <% } %>
-        <% if (item.examples) { %>
-        <pre><%= item.examples %></pre>
+        <% if (item.example) { %>
+        <pre><%= item.example %></pre>
         <% } %>
         <% if (item.more) { %>
         <pre><%= item.more %></pre>

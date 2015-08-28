@@ -37,42 +37,52 @@ tpl = fs.readFileSync('template.html', {encoding: 'utf8'});
 eachFile('src');
 
 // 读取注释
-data.forEach(function(text) {
+data.forEach(function(text) { // 循环文件
   matchs = text.match(/\/\*\*[^*][\s\S]*?\*\//g);
 
   if (!matchs) { // 跳过不需要生成doc的js文件
     return;
   }
 
-  matchs.forEach(function(match, i) {
-    match.replace(/@(name|desc|grammar|param|returns|examples|more)\s*(?:\{(.*)\})?\s*([^@]*)/gi, function($0, $1, $2, $3){
-      $1 = $1.toLowerCase();
-      $3 = $3.replace(/(?:\s*\*[\s\/]*)*$/g, '');
-      if (i === 0) { // js文件顶部注释信息
-        if ($1 === 'name') { // name直接作为data的key存储此文件的内容
-          result[name = $3] = {};
-        } else {
-          $3 = $3.replace(/[\t ]*\*[\t ]/g, '');
-          result[name][$1] = $3;
-        }
-      } else { // 非顶部注释
-        result[name]['items'] = result[name]['items'] || [];
-        result[name]['items'][i-1] = result[name]['items'][i -1] || [];
-        if ($1 === 'name' || $1 === 'desc' || $1 === 'grammar') {
-          result[name]['items'][i-1].infos = result[name]['items'][i-1].infos || {};
-          result[name]['items'][i-1].infos[$1] = $3;
-        } else {
-          $3 = $3.replace(/[\t ]*\*[\t ]/g, '');
-          if ($1 === 'examples' || $1 === 'more') {
-            result[name]['items'][i-1][$1] = $3;
+  var 
+    singleResult = {items: []},
+    singleName;
+
+  matchs.forEach(function(match, i) { // 循环文件中的注释
+    singleResult['items'][i-1] = {params: []};
+    match.replace(/@(name|grammar|param|return|example|more)\s(?:\{(.*)\})?\s*([^@]*)|\/\*\*[*\s]+([^@]+)/gi, function($0, $1, $2, $3, $4) {
+      if ($1) { // 非描述信息
+        $1 = $1.toLowerCase();
+        $3 = $3.replace(/[\t ]*\*[\t ]|(?:\s*\*[\s\/]*)*$/g, ''); // reg => 多行处理|去掉$3后面没用的
+        if (i === 0) { // js文件顶部注释信息
+          if ($1 === 'name') { // name直接作为data的key存储此文件的内容
+            singleName = $3;
           } else {
-            result[name]['items'][i-1].params = result[name]['items'][i-1].params || [];
-            result[name]['items'][i-1].params.push([$1, $2, $3]);
+            singleResult[$1] = $3;
           }
+        } else { // 非顶部注释
+          if ($1 === 'name' || $1 === 'grammar') { // name/grammar
+            singleResult['items'][i-1][$1] = $3;
+          } else {
+            if ($1 === 'example' || $1 === 'more') { // example/more
+              singleResult['items'][i-1][$1] = $3;
+            } else { // param/return
+              singleResult['items'][i-1]['params'].push([$1, $2, $3]);
+            }
+          }
+        }
+      } else { // 描述
+        $4 = $4.replace(/[\t ]*\*[\t ]|(?:\s*\*[\s\/]*)*$/g, ''); // reg => 多行处理|去掉$3后面没用的
+        if (i === 0) {
+          singleResult['desc'] = $4;
+        } else {
+          singleResult['items'][i-1]['desc'] = $4;
         }
       }
     })
-  })
+  });
+
+  result[singleName] = singleResult;
 })
 
 // 模板渲染
