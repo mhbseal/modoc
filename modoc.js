@@ -53,7 +53,7 @@ data.forEach(function(text) { // 循环文件
     match.replace(/@(name|grammar|param|return|example|more)\s(?:\{(.*)\})?\s*([^@]*)|\/\*\*[*\s]+([^@]+)/gi, function($0, $1, $2, $3, $4) {
       if ($1) { // 非描述信息
         $1 = $1.toLowerCase();
-        $3 = $3.replace(/[\t ]*\*[\t ]|(?:\s*\*[\s\/]*)*$/g, ''); // reg => 多行处理|去掉$3后面没用的
+        $3 = $3.replace(/[\t ]*\*[\t ]?|(?:\s*\*[\s\/]*)*$/g, ''); // reg => 多行处理|去掉$3后面没用的
         if (i === 0) { // js文件顶部注释信息
           if ($1 === 'name') { // name直接作为data的key存储此文件的内容
             singleName = $3;
@@ -72,7 +72,7 @@ data.forEach(function(text) { // 循环文件
           }
         }
       } else { // 描述
-        $4 = $4.replace(/[\t ]*\*[\t ]|(?:\s*\*[\s\/]*)*$/g, ''); // reg => 多行处理|去掉$3后面没用的
+        $4 = $4.replace(/[\t ]*\*[\t ]?|(?:\s*\*[\s\/]*)*$/g, ''); // reg => 多行处理|去掉$3后面没用的
         if (i === 0) {
           singleResult['desc'] = $4;
         } else {

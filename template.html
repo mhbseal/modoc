@@ -205,26 +205,26 @@
       <h2 id="<%= k %>"><%= k %></h2>
       <p><%= v.desc %></p>
       <% if (v.example) { %>
-      <pre><%= v.example %></pre>
+      <pre><%- v.example %></pre>
       <% } %>
       <% if (v.more) { %>
-      <pre><%= v.more %></pre>
+      <pre><%- v.more %></pre>
       <% } %>
       <% _.each(v.items, function(item, i) { %>
         <p id="<%= k %>_<%= item.name %>">
-          <b class="header"><%= item.name %></b><code><%= item.grammar %></code>
+          <b class="header"><%= item.name %></b><code><%- item.grammar %></code>
           <br>
           <%= item.desc %>
         </p>
         <% if (item.params && item.params.length) { %>
 <pre><% _.each(item.params, function(vv, ii) { %>
-@<%= vv[0] %> {<%= vv[1] %>} <%= vv[2] %><% }) %></pre>
+@<%- vv[0] %> {<%- vv[1] %>} <%- vv[2] %><% }) %></pre>
         <% } %>
         <% if (item.example) { %>
-        <pre><%= item.example %></pre>
+        <pre><%- item.example %></pre>
         <% } %>
         <% if (item.more) { %>
-        <pre><%= item.more %></pre>
+        <pre><%- item.more %></pre>
         <% } %>
       <% }) %>
     <% }) %>

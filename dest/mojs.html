@@ -395,7 +395,7 @@
       <h2 id="Cookie">Cookie</h2>
       <p>操作cookie的方法</p>
       
-      <pre>define(['Cookie'], function(Cookie) { ... })</pre>
+      <pre>define([&#x27;Cookie&#x27;], function(Cookie) { ... })</pre>
       
       
       
@@ -408,7 +408,7 @@
 <pre>
 @param {object} options
   - isRaw {boolean} 是否原生字符（不转码）, 默认为false
-  - isJson {boolean} 是否str->json, 默认为false</pre>
+  - isJson {boolean} 是否str-&gt;json, 默认为false</pre>
         
         
         <pre>var cookie = new Cookie();</pre>
@@ -431,7 +431,7 @@
   - secure  {boolean} 安全策略,只有https下能设置 ture or false, 默认为false</pre>
         
         
-        <pre>cookie.set('user', 'mo')</pre>
+        <pre>cookie.set(&#x27;user&#x27;, &#x27;mo&#x27;)</pre>
         
         
       
@@ -446,7 +446,7 @@
 @return {*} cookie的value</pre>
         
         
-        <pre>cookie.get('user')</pre>
+        <pre>cookie.get(&#x27;user&#x27;)</pre>
         
         
       
@@ -460,7 +460,7 @@
 @param {string} cookie的name</pre>
         
         
-        <pre>cookie.remove('user')</pre>
+        <pre>cookie.remove(&#x27;user&#x27;)</pre>
         
         
       
@@ -468,7 +468,7 @@
       <h2 id="IdCard">IdCard</h2>
       <p>身份证的校验以及从从身份证号码中获取一些信息，例如出生日期，性别</p>
       
-      <pre>define(['IdCard'], function(IdCard) { ... })</pre>
+      <pre>define([&#x27;IdCard&#x27;], function(IdCard) { ... })</pre>
       
       
       <pre>身份证规则
@@ -478,15 +478,15 @@ dddddd : 地区码
 yymmdd : 出生年月日
 xx     : 顺序类编码，无法确定
 p      : 性别，奇数为男，偶数为女
- *
+
 身份证18位编码规则 -- dddddd yyyymmdd xxx y
 dddddd   : 地区码
 yyyymmdd : 出生年月日
 xxx      : 顺序类编码，无法确定，奇数为男，偶数为女
 y        : 校验码，该位数值可通过前17位计算获得
- *
+
 18位号码加权因子为          : WI = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2, 1]
-校验位集合                  : CODE = [1, 0, 'x', 9, 8, 7, 6, 5, 4, 3, 2]
+校验位集合                  : CODE = [1, 0, &#x27;x&#x27;, 9, 8, 7, 6, 5, 4, 3, 2]
 校验位index计算公式         : index = mod(∑(ai×Wi), 11)
 =====================================================================</pre>
       
@@ -503,7 +503,7 @@ y        : 校验码，该位数值可通过前17位计算获得
   - requireAreaInfo {boolean} 是否需要校验、获取省市区信息</pre>
         
         
-        <pre>var idCard = new IdCard('610125198711037137', {requireAreaInfo: true});
+        <pre>var idCard = new IdCard(&#x27;610125198711037137&#x27;, {requireAreaInfo: true});
 // 要校验省市区或者获取省市区信息,需要异步引入一个较大的地区信息data(100K+),没有必要,建议不要设置requireAreaInfo!</pre>
         
         
@@ -518,7 +518,7 @@ y        : 校验码，该位数值可通过前17位计算获得
 @return {boolean} </pre>
         
         
-        <pre>idCard.checkCode() => true</pre>
+        <pre>idCard.checkCode() =&gt; true</pre>
         
         
       
@@ -532,7 +532,7 @@ y        : 校验码，该位数值可通过前17位计算获得
 @return {boolean} </pre>
         
         
-        <pre>idCard.checkBirth() => true</pre>
+        <pre>idCard.checkBirth() =&gt; true</pre>
         
         
       
@@ -549,7 +549,7 @@ y        : 校验码，该位数值可通过前17位计算获得
   - day   {number}</pre>
         
         
-        <pre>idCard.getBirth() => {year: 1987, month: 11, day: 13}</pre>
+        <pre>idCard.getBirth() =&gt; {year: 1987, month: 11, day: 13}</pre>
         
         
       
@@ -563,7 +563,7 @@ y        : 校验码，该位数值可通过前17位计算获得
 @return {string} </pre>
         
         
-        <pre>idCard.getSex() => '男'</pre>
+        <pre>idCard.getSex() =&gt; &#x27;男&#x27;</pre>
         
         
       
@@ -571,13 +571,13 @@ y        : 校验码，该位数值可通过前17位计算获得
       <h2 id="ParseUrl">ParseUrl</h2>
       <p>解析url</p>
       
-      <pre>define(['ParseUrl'], function(ParseUrl) { ... })</pre>
+      <pre>define([&#x27;ParseUrl&#x27;], function(ParseUrl) { ... })</pre>
       
       
-      <pre>url注解
+      <pre>url注解&lt;div&gt;122112
 =====================================================================
- *
-http://username:password&#64;www.example.com:80/path/file.name?query=string#anchor
+
+http://username:password&amp;#64;www.example.com:80/path/file.name?query=string#anchor
 |__|   |______| |______| |_____________||_||___||________||___________||_____|
  |        |        |            |       |   |         |         |        |
 protocol user   password      host  port directory  file      query   anchor
@@ -590,7 +590,7 @@ protocol user   password      host  port directory  file      query   anchor
 |___________________________________________________________________________|
                                         |
                                       source
- *
+
 =====================================================================</pre>
       
       
@@ -604,7 +604,7 @@ protocol user   password      host  port directory  file      query   anchor
 @param {string} 默认为location.href</pre>
         
         
-        <pre>var parseUrl = new ParseUrl('http://username:password&#64;www.example.com:80/path/file.name?query=string#anchor');</pre>
+        <pre>var parseUrl = new ParseUrl(&#x27;http://username:password&amp;#64;www.example.com:80/path/file.name?query=string#anchor&#x27;);</pre>
         
         
       
@@ -615,12 +615,12 @@ protocol user   password      host  port directory  file      query   anchor
         </p>
         
 <pre>
-@param {} {string} name,可选 范围"source", "protocol", "authority", "userInfo", "user",
-"password", "host", "port", "relative", "path", "directory", "file", "query", "anchor"
+@param {} {string} name,可选 范围&quot;source&quot;, &quot;protocol&quot;, &quot;authority&quot;, &quot;userInfo&quot;, &quot;user&quot;,
+&quot;password&quot;, &quot;host&quot;, &quot;port&quot;, &quot;relative&quot;, &quot;path&quot;, &quot;directory&quot;, &quot;file&quot;, &quot;query&quot;, &quot;anchor&quot;
 @return {string} value</pre>
         
         
-        <pre>parseUrl.getAttr('port') => '80'</pre>
+        <pre>parseUrl.getAttr(&#x27;port&#x27;) =&gt; &#x27;80&#x27;</pre>
         
         
       
@@ -635,7 +635,7 @@ protocol user   password      host  port directory  file      query   anchor
 @return {string} value</pre>
         
         
-        <pre>parseUrl.getParam('query') => 'string'</pre>
+        <pre>parseUrl.getParam(&#x27;query&#x27;) =&gt; &#x27;string&#x27;</pre>
         
         
       
@@ -643,7 +643,7 @@ protocol user   password      host  port directory  file      query   anchor
       <h2 id="common">common</h2>
       <p>一些底层的方法</p>
       
-      <pre>define(['common'], function(c) { ... })</pre>
+      <pre>define([&#x27;common&#x27;], function(c) { ... })</pre>
       
       
       
@@ -665,14 +665,14 @@ protocol user   password      host  port directory  file      query   anchor
 <pre>
 @param {object} obj
 @param {function} iteratee
-  - param {*} value
-  - param {*} key
+  - param {} value
+  - param {} key
   - param {object} forIn的第一个参数obj
 @param {object} iteratee的上下文,可选</pre>
         
         
         <pre>c.forIn({a: 1, b: 2, toString: 3}, function(v, k) {
-  console.log(k + ':' + v) => 依次输出: 'a: 1', 'b: 2', 'toString: 3'
+  console.log(k + &#x27;:&#x27; + v) =&gt; 依次输出: &#x27;a: 1&#x27;, &#x27;b: 2&#x27;, &#x27;toString: 3&#x27;
 })</pre>
         
         
@@ -689,29 +689,29 @@ protocol user   password      host  port directory  file      query   anchor
 @return {} {object|array} extend后的object</pre>
         
         
-        <pre>c.extend({a: 1}, {b: 2}, {c: 3}) => {a: 1, b: 2, c: 3}
+        <pre>c.extend({a: 1}, {b: 2}, {c: 3}) =&gt; {a: 1, b: 2, c: 3}
 // 浅拷贝
-c.extend({a: {b: 1}}, {a: {c: 2}}) => {a: {c: 2}}
+c.extend({a: {b: 1}}, {a: {c: 2}}) =&gt; {a: {c: 2}}
 // 深度拷贝
-c.extend(true, {a: {b: 1}}, {a: {c: 2}}) => {a: {b: 1, c: 2}}</pre>
+c.extend(true, {a: {b: 1}}, {a: {c: 2}}) =&gt; {a: {b: 1, c: 2}}</pre>
         
         
       
         <p id="common_type">
-          <b class="header">type</b><code>c.type(*)</code>
+          <b class="header">type</b><code>c.type()</code>
           <br>
           判断对象的类型
         </p>
         
         
-        <pre>c.type({a: 1}) => 'object'
-c.type('mo.js') => 'string'
-c.type(2) => 'number'</pre>
+        <pre>c.type({a: 1}) =&gt; &#x27;object&#x27;
+c.type(&#x27;mo.js&#x27;) =&gt; &#x27;string&#x27;
+c.type(2) =&gt; &#x27;number&#x27;</pre>
         
         
       
         <p id="common_isBoolean">
-          <b class="header">isBoolean</b><code>c.isBoolean(*)</code>
+          <b class="header">isBoolean</b><code>c.isBoolean()</code>
           <br>
           是否是Boolean类型
         </p>
@@ -720,7 +720,7 @@ c.type(2) => 'number'</pre>
         
       
         <p id="common_isNumber">
-          <b class="header">isNumber</b><code>c.isNumber(*)</code>
+          <b class="header">isNumber</b><code>c.isNumber()</code>
           <br>
           是否是Number类型
         </p>
@@ -729,7 +729,7 @@ c.type(2) => 'number'</pre>
         
       
         <p id="common_isString">
-          <b class="header">isString</b><code>c.isString(*)</code>
+          <b class="header">isString</b><code>c.isString()</code>
           <br>
           是否是String类型
         </p>
@@ -738,7 +738,7 @@ c.type(2) => 'number'</pre>
         
       
         <p id="common_isFunction">
-          <b class="header">isFunction</b><code>c.isFunction(*)</code>
+          <b class="header">isFunction</b><code>c.isFunction()</code>
           <br>
           是否是Function类型
         </p>
@@ -747,7 +747,7 @@ c.type(2) => 'number'</pre>
         
       
         <p id="common_isDate">
-          <b class="header">isDate</b><code>c.isDate(*)</code>
+          <b class="header">isDate</b><code>c.isDate()</code>
           <br>
           是否是Date类型
         </p>
@@ -756,7 +756,7 @@ c.type(2) => 'number'</pre>
         
       
         <p id="common_isRegExp">
-          <b class="header">isRegExp</b><code>c.isRegExp(*)</code>
+          <b class="header">isRegExp</b><code>c.isRegExp()</code>
           <br>
           是否是RegExp类型
         </p>
@@ -765,7 +765,7 @@ c.type(2) => 'number'</pre>
         
       
         <p id="common_isObject">
-          <b class="header">isObject</b><code>c.isObject(*)</code>
+          <b class="header">isObject</b><code>c.isObject()</code>
           <br>
           是否是Object类型
         </p>
@@ -774,7 +774,7 @@ c.type(2) => 'number'</pre>
         
       
         <p id="common_isArray">
-          <b class="header">isArray</b><code>c.isArray(*)</code>
+          <b class="header">isArray</b><code>c.isArray()</code>
           <br>
           是否是数组
         </p>
@@ -783,7 +783,7 @@ c.type(2) => 'number'</pre>
         
       
         <p id="common_isArraylike">
-          <b class="header">isArraylike</b><code>c.isArraylike(*)</code>
+          <b class="header">isArraylike</b><code>c.isArraylike()</code>
           <br>
           是否是类数组, 例如nodelist,arguments,具有length并且keys为0.1.2...的obj
         </p>
@@ -792,7 +792,7 @@ c.type(2) => 'number'</pre>
         
       
         <p id="common_isNaN">
-          <b class="header">isNaN</b><code>c.isNaN(*)</code>
+          <b class="header">isNaN</b><code>c.isNaN()</code>
           <br>
           判断是否为NaN
         </p>
@@ -837,7 +837,7 @@ c.type(2) => 'number'</pre>
         
       
         <p id="common_log">
-          <b class="header">log</b><code>c.log(*)</code>
+          <b class="header">log</b><code>c.log()</code>
           <br>
           同console.log()
         </p>
@@ -873,9 +873,9 @@ c.type(2) => 'number'</pre>
 @return {function} 新的构造函数</pre>
         
         
-        <pre>c.baseClass(A, {a: function() {}, b: function(){}}, B) => A继承B,并且prototype上添加方法a和b
-c.baseClass(A, {a: function() {}, b: function(){}}) => A的prototype上添加方法a和b
-c.baseClass(A, B) => A继承B</pre>
+        <pre>c.baseClass(A, {a: function() {}, b: function(){}}, B) =&gt; A继承B,并且prototype上添加方法a和b
+c.baseClass(A, {a: function() {}, b: function(){}}) =&gt; A的prototype上添加方法a和b
+c.baseClass(A, B) =&gt; A继承B</pre>
         
         
       
@@ -883,13 +883,13 @@ c.baseClass(A, B) => A继承B</pre>
       <h2 id="date">date</h2>
       <p>日期格式化、计算</p>
       
-      <pre>define(['date'], function(date) {
+      <pre>define([&#x27;date&#x27;], function(date) {
   var birthday = new Date(); // 默认值,当前客户端时间Date实例
-  var birthday = '/Date(1395331200000+0800)/'; // 非JS格式的时间戳,例如.NET
-  var birthday = '1987/11/03 20:30:40'; // 需要重新格式化的字符串,注意12小时制不支持
-  var birthday = '1987/11/03'; // 需要重新格式化的字符串
+  var birthday = &#x27;/Date(1395331200000+0800)/&#x27;; // 非JS格式的时间戳,例如.NET
+  var birthday = &#x27;1987/11/03 20:30:40&#x27;; // 需要重新格式化的字符串,注意12小时制不支持
+  var birthday = &#x27;1987/11/03&#x27;; // 需要重新格式化的字符串
   var birthday = 565533040500; // 时间戳(number/string)
-  var birthday = new Date('1987', '10', '03', '20', '30', '40', '500'); // Date实例
+  var birthday = new Date(&#x27;1987&#x27;, &#x27;10&#x27;, &#x27;03&#x27;, &#x27;20&#x27;, &#x27;30&#x27;, &#x27;40&#x27;, &#x27;500&#x27;); // Date实例
 })</pre>
       
       
@@ -906,10 +906,10 @@ c.baseClass(A, B) => A继承B</pre>
 @return {string} 格式化后的字符串</pre>
         
         
-        <pre>date.format('YYYY-MM-DD HH:mm:ss') => '1987-11-03 20:30:40'
-date.format(birthday, 'YYYY-MM-DD HH:mm:ss') => '1987-11-03 20:30:40'
-date.format(birthday, 'YY年M月D日 h时m分s秒 S毫秒 ddd') => '87年12月3日 8时30分40秒 500毫秒 周四'
-date.format(birthday, '\\Q\\ww\\a,第Q季度,第ww周季度,A') => 'Qwwa,第4季度,第49周季度,PM'</pre>
+        <pre>date.format(&#x27;YYYY-MM-DD HH:mm:ss&#x27;) =&gt; &#x27;1987-11-03 20:30:40&#x27;
+date.format(birthday, &#x27;YYYY-MM-DD HH:mm:ss&#x27;) =&gt; &#x27;1987-11-03 20:30:40&#x27;
+date.format(birthday, &#x27;YY年M月D日 h时m分s秒 S毫秒 ddd&#x27;) =&gt; &#x27;87年12月3日 8时30分40秒 500毫秒 周四&#x27;
+date.format(birthday, &#x27;\\Q\\ww\\a,第Q季度,第ww周季度,A&#x27;) =&gt; &#x27;Qwwa,第4季度,第49周季度,PM&#x27;</pre>
         
         
         <pre>token映射表 参照 http://momentjs.com/docs/#/displaying/,只引用了其中一部分,涉及到中文的部分稍微有调整
@@ -954,14 +954,14 @@ Fractional Second        S           0 1 ... 8 9
         
 <pre>
 @param {} {number|string|date} 需要格式化的date,不传默认为当前时间
-@param {} {string} 单位['FullYear', 'Month', 'Date', 'Hours', 'Minutes', 'Seconds', 'Milliseconds', 'Time']
+@param {} {string} 单位[&#x27;FullYear&#x27;, &#x27;Month&#x27;, &#x27;Date&#x27;, &#x27;Hours&#x27;, &#x27;Minutes&#x27;, &#x27;Seconds&#x27;, &#x27;Milliseconds&#x27;, &#x27;Time&#x27;]
 @param {} {number} n单位
 @return {Date} 计算后的结果</pre>
         
         
-        <pre>date.add('Minutes', 5) => Thu Dec 03 1987 20:35:40 GMT+0800 (中国标准时间)
-date.add(birthday, 'Time', 5000) => Thu Dec 03 1987 20:35:45 GMT+0800 (中国标准时间)
-date.sub(birthday, 'Minutes', 5) => Thu Dec 03 1987 20:30:45 GMT+0800 (中国标准时间)</pre>
+        <pre>date.add(&#x27;Minutes&#x27;, 5) =&gt; Thu Dec 03 1987 20:35:40 GMT+0800 (中国标准时间)
+date.add(birthday, &#x27;Time&#x27;, 5000) =&gt; Thu Dec 03 1987 20:35:45 GMT+0800 (中国标准时间)
+date.sub(birthday, &#x27;Minutes&#x27;, 5) =&gt; Thu Dec 03 1987 20:30:45 GMT+0800 (中国标准时间)</pre>
         
         
       
@@ -969,7 +969,7 @@ date.sub(birthday, 'Minutes', 5) => Thu Dec 03 1987 20:30:45 GMT+0800 (中国标
       <h2 id="es5">es5</h2>
       <p>es5 polyfill or shim. 其中each,map,filter,some,every可以应用到类数组,对象. indexOf,lastIndexOf,reduce,reduceRight可以应用到类数组</p>
       
-      <pre>define(['es5'], function(date) { ... })</pre>
+      <pre>define([&#x27;es5&#x27;], function(date) { ... })</pre>
       
       
       
@@ -982,8 +982,8 @@ date.sub(birthday, 'Minutes', 5) => Thu Dec 03 1987 20:30:45 GMT+0800 (中国标
 <pre>
 @param {arraylike|object} 类数组或者对象
 @param {function} 迭代函数
-  - param {*} value
-  - param {*} index|key
+  - param {} value
+  - param {} index|key
   - param {array|object} each的第一个参数
 @param {object} iteratee的上下文,可选</pre>
         
@@ -999,8 +999,8 @@ date.sub(birthday, 'Minutes', 5) => Thu Dec 03 1987 20:30:45 GMT+0800 (中国标
 <pre>
 @param {} {arraylike|object} 类数组或者对象
 @param {} {function} 迭代函数
-  - param {*} value
-  - param {*} index/key
+  - param {} value
+  - param {} index/key
   - param {array|object} map的第一个参数
 @param {} {object} iteratee的上下文,可选
 @return {array} 结果</pre>
@@ -1043,7 +1043,7 @@ date.sub(birthday, 'Minutes', 5) => Thu Dec 03 1987 20:30:45 GMT+0800 (中国标
         
 <pre>
 @param {} {arraylike} 需要查找的类数组
-@param {} {*} 需要查找的元素
+@param {} {} 需要查找的元素
 @param {} {number} 开始索引,可选
 @return {number} 查找到元素的索引值</pre>
         
@@ -1082,9 +1082,9 @@ date.sub(birthday, 'Minutes', 5) => Thu Dec 03 1987 20:30:45 GMT+0800 (中国标
 <pre>
 @param {arraylike} 类数组
 @param {function} 迭代函数
-  - param {*} previousValue
-  - param {*} currentValue
-  - param {*} index/key
+  - param {} previousValue
+  - param {} currentValue
+  - param {} index/key
   - param {array|object} reduce的第一个参数
 @param {*} 可选,作为第一次调用iteratee的第一个参数,如果不存在,则把第一次要iteratee的value复制给memo,并且跳过index这次iteratee
 @param {object} iteratee的上下文,可选</pre>
@@ -1105,11 +1105,11 @@ date.sub(birthday, 'Minutes', 5) => Thu Dec 03 1987 20:30:45 GMT+0800 (中国标
       <h2 id="objectPath">objectPath</h2>
       <p>读取或设置object path下的value</p>
       
-      <pre>define(['objectPath'], function(objectPath) {
+      <pre>define([&#x27;objectPath&#x27;], function(objectPath) {
   var obj = {
      a: {
        b: {
-         c: 'mo.js'
+         c: &#x27;mo.js&#x27;
        }
      }
   }
@@ -1126,12 +1126,12 @@ date.sub(birthday, 'Minutes', 5) => Thu Dec 03 1987 20:30:45 GMT+0800 (中国标
 <pre>
 @param {} {object} obj
 @param {} {string} path
-@param {} {*} value
+@param {} {} value
 @return {boolean} 成功true,失败false</pre>
         
         
-        <pre>objectPath.set(obj, 'a.d', 'mo.js') => obj.a.d = 'mo.js'
-objectPath.set(obj, 'a.b.e', 'mo.js') => obj.a.b.e = 'mo.js'</pre>
+        <pre>objectPath.set(obj, &#x27;a.d&#x27;, &#x27;mo.js&#x27;) =&gt; obj.a.d = &#x27;mo.js&#x27;
+objectPath.set(obj, &#x27;a.b.e&#x27;, &#x27;mo.js&#x27;) =&gt; obj.a.b.e = &#x27;mo.js&#x27;</pre>
         
         
       
@@ -1147,7 +1147,7 @@ objectPath.set(obj, 'a.b.e', 'mo.js') => obj.a.b.e = 'mo.js'</pre>
 @return {*} value</pre>
         
         
-        <pre>objectPath.get(obj, 'a.b.e') => 'mo.js'</pre>
+        <pre>objectPath.get(obj, &#x27;a.b.e&#x27;) =&gt; &#x27;mo.js&#x27;</pre>
         
         
       
@@ -1155,7 +1155,7 @@ objectPath.set(obj, 'a.b.e', 'mo.js') => obj.a.b.e = 'mo.js'</pre>
       <h2 id="pubSub">pubSub</h2>
       <p>pub/sub 发布订阅</p>
       
-      <pre>define(['pubSub'], function(pubSub) { ... })</pre>
+      <pre>define([&#x27;pubSub&#x27;], function(pubSub) { ... })</pre>
       
       
       
@@ -1180,7 +1180,7 @@ objectPath.set(obj, 'a.b.e', 'mo.js') => obj.a.b.e = 'mo.js'</pre>
         </p>
         
 <pre>
-@param {string} 消息,支持子message. eg. 'a.b.c'
+@param {string} 消息,支持子message. eg. &#x27;a.b.c&#x27;
 @param {*} 执行订阅的handler时传入的data</pre>
         
         
@@ -1235,7 +1235,7 @@ objectPath.set(obj, 'a.b.e', 'mo.js') => obj.a.b.e = 'mo.js'</pre>
       <h2 id="AbstractStore">AbstractStore</h2>
       <p>store的抽象类,针对storage中的key,一般不使用该类,常用他的子类LocalStore(options.proxy = window.localStorage)、SessionStore(options.proxy = window.sessionStorage)</p>
       
-      <pre>define(['AbstractStore'], function(AbstractStore) { ... })</pre>
+      <pre>define([&#x27;AbstractStore&#x27;], function(AbstractStore) { ... })</pre>
       
       
       
@@ -1246,7 +1246,7 @@ objectPath.set(obj, 'a.b.e', 'mo.js') => obj.a.b.e = 'mo.js'</pre>
         </p>
         
 <pre>
-@param {} {string} liftTime 单位D,H,M,S. eg. '24H'
+@param {} {string} liftTime 单位D,H,M,S. eg. &#x27;24H&#x27;
 @return {number} 根据liftTime计算要增加的毫秒数</pre>
         
         
@@ -1262,13 +1262,13 @@ objectPath.set(obj, 'a.b.e', 'mo.js') => obj.a.b.e = 'mo.js'</pre>
 @param {object} options
   - proxy           {storage} window.localStorage/window.sessionStorage
   - key             {string} key
-  - lifetime        {string} 生命周期,默认'1H' 单位D,H,M,S. eg. '24H'
+  - lifetime        {string} 生命周期,默认&#x27;1H&#x27; 单位D,H,M,S. eg. &#x27;24H&#x27;
   - rollbackEnabled {boolean} 是否回滚</pre>
         
         
         <pre>var store = new AbstractStore({
   proxy: window.localStorage,
-  key: 'USER'
+  key: &#x27;USER&#x27;
 }))</pre>
         
         
@@ -1280,7 +1280,7 @@ objectPath.set(obj, 'a.b.e', 'mo.js') => obj.a.b.e = 'mo.js'</pre>
         </p>
         
 <pre>
-@param {} {*} value
+@param {} {} value
 @param {} {string} 可选,tag标识,如果传递tag,get时会比较tag标识,不一致返回null
 @param {} {string} 可选,默认false,是否设置回滚数据
 @return {boolean} 成功true,失败false</pre>
@@ -1295,8 +1295,8 @@ objectPath.set(obj, 'a.b.e', 'mo.js') => obj.a.b.e = 'mo.js'</pre>
         </p>
         
 <pre>
-@param {} {String} name 支持通过路径的方式，如'a.b.c'
-@param {} {*} value
+@param {} {String} name 支持通过路径的方式，如&#x27;a.b.c&#x27;
+@param {} {} value
 @param {} {string} 可选,tag标识,如果传递tag,get时会比较tag标识,不一致返回null
 @param {} {string} 可选,默认false,是否设置回滚数据
 @return {boolean} 成功true,失败false</pre>
@@ -1325,7 +1325,7 @@ objectPath.set(obj, 'a.b.e', 'mo.js') => obj.a.b.e = 'mo.js'</pre>
         </p>
         
 <pre>
-@param {} {String} name 支持通过路径的方式，如'a.b.c'
+@param {} {String} name 支持通过路径的方式，如&#x27;a.b.c&#x27;
 @param {} {string} 可选,tag标识,如果传递tag,get时会比较tag标识,不一致返回null
 @param {} {string} 可选,默认false,是否设置回滚数据
 @return {*} value</pre>
@@ -1388,7 +1388,7 @@ objectPath.set(obj, 'a.b.e', 'mo.js') => obj.a.b.e = 'mo.js'</pre>
       
       <pre>var store = new AbstractStore({
   proxy: window.localStore, // 默认值
-  key: 'USER'
+  key: &#x27;USER&#x27;
 })</pre>
       
       
@@ -1399,7 +1399,7 @@ objectPath.set(obj, 'a.b.e', 'mo.js') => obj.a.b.e = 'mo.js'</pre>
       
       <pre>var store = new AbstractStore({
   proxy: window.sessionStore, // 默认值
-  key: 'USER'
+  key: &#x27;USER&#x27;
 })</pre>
       
       
@@ -1408,8 +1408,8 @@ objectPath.set(obj, 'a.b.e', 'mo.js') => obj.a.b.e = 'mo.js'</pre>
       <h2 id="utils">utils</h2>
       <p>工具方法集</p>
       
-      <pre>define(['util'], function(util) {
-  var str = 'mo';
+      <pre>define([&#x27;util&#x27;], function(util) {
+  var str = &#x27;mo&#x27;;
   var num = 19871103;
 })</pre>
       
@@ -1425,7 +1425,7 @@ objectPath.set(obj, 'a.b.e', 'mo.js') => obj.a.b.e = 'mo.js'</pre>
 @return {string} guid</pre>
         
         
-        <pre>util.guid() => 'd42fb5af-9b78-6320-9a79-327cb00ea561'</pre>
+        <pre>util.guid() =&gt; &#x27;d42fb5af-9b78-6320-9a79-327cb00ea561&#x27;</pre>
         
         
       
@@ -1443,7 +1443,7 @@ objectPath.set(obj, 'a.b.e', 'mo.js') => obj.a.b.e = 'mo.js'</pre>
   - index  {number} 字符串的index,如果参数index为空,则该字段无返回值</pre>
         
         
-        <pre>util.getByteInfo('我的生日是1987年11月03日', 5) => Object {length: 24, index: 2}</pre>
+        <pre>util.getByteInfo(&#x27;我的生日是1987年11月03日&#x27;, 5) =&gt; Object {length: 24, index: 2}</pre>
         
         
       
@@ -1462,9 +1462,9 @@ objectPath.set(obj, 'a.b.e', 'mo.js') => obj.a.b.e = 'mo.js'</pre>
 @return {string} 处理后的字符串</pre>
         
         
-        <pre>util.pad(str, 4, '-') => '--mo'
-util.pad(num, 14, 0, true) => '19871103000000'
-util.pad(num, , 6, null, false, true) => '871103'</pre>
+        <pre>util.pad(str, 4, &#x27;-&#x27;) =&gt; &#x27;--mo&#x27;
+util.pad(num, 14, 0, true) =&gt; &#x27;19871103000000&#x27;
+util.pad(num, , 6, null, false, true) =&gt; &#x27;871103&#x27;</pre>
         
         
       
