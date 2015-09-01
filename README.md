@@ -36,15 +36,15 @@ general document comment
      *
      * @param {string} 1
      * @param {object} 2
-     *   - param {number} 3
-     *   - param {string} 4
+     *   - a {number} 3
+     *   - b {string} 4
      * @param {function} 5
      *   - param {number} 6
      *   - param {function} 7
      *     - param 8
      * @return {object} 9
-     *   - a {string} 10
-     *   - b {number} 11
+     *   - c {string} 10
+     *   - d {number} 11
      */
 
 after add generator
@@ -54,15 +54,15 @@ after add generator
      *
      * @param {string} 1
      * @param {object} 2
-     *   - param {number} 3
-     *   - param {string} 4
+     *   - a {number} 3
+     *   - b {string} 4
      * @param {function} 5
      *   - param {number} 6
      *   - param {function} 7
      *     - param 8
      * @return {object} 9
-     *   - a {string} 10
-     *   - b {number} 11
+     *   - c {string} 10
+     *   - d {number} 11
      * 
      * @name file name or method name or property name(required)
      * @example
