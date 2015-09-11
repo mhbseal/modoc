@@ -105,7 +105,7 @@ define(['common'], function (c) {
 			 * @param  {string} key
 			 * @param  {*} value
 			 * @param  {string} 可选,tag标识,如果传递tag,get时会比较tag标识,不一致返回null
-			 * @param  {number} 可选,失效时间,默认 now+1天
+			 * @param  {number} 可选,失效时间,默认 now+1天的时间戳
 			 * @param  {string} 可选,默认false,是否设置回滚数据
 			 * @return {boolean} 成功true,失败false
 			 */
@@ -116,8 +116,8 @@ define(['common'], function (c) {
 					storage = this.options.storage,
 					otherValue, oldValue;
 
-				if (timeout == null || timeout < now) timeout = now + 24 * 60 * 60 * 1000; // 默认 now+1天
-				if (this.getTag(key) === tag) otherValue = this.get(key, tag, !isOld);
+				if (timeout == null) timeout = now + 24 * 60 * 60 * 1000; // 默认 now+1天
+				if (tag == null || this.getTag(key) === tag) otherValue = this.get(key, tag, !isOld);
 
 				if (isOld) { // 设置回滚数据
 					oldValue = value;
@@ -177,14 +177,14 @@ define(['common'], function (c) {
 			 * 设置key的失效时间
        *
 			 * @param  {string} key
+       * @param  {number} timeout
 			 * @return {boolean} 成功true,失败false
 			 */
 			setExpireTime: function (key, timeout) {
 				var obj = this.options.storage.getItem(key);
 				if (obj) {
 					obj = JSON.parse(obj);
-					if (timeout < obj.timeout) return;
-					return this.set(key, value, tag, timeout);
+				  return this.set(key, obj.value, obj.tag, timeout);
 				}
 				return false;
 			},
@@ -232,7 +232,6 @@ define(['common'], function (c) {
 						} else {
 							TimeMapResult.push(value);
 						}
-						;
 					}
 					// 将剩余的key存入缓存中，没有则删除timeMap这个key
 					TimeMapResult.length ? storage.setItem(timeMapKey, JSON.stringify(TimeMapResult)) : storage.removeItem(timeMapKey);

@@ -190,7 +190,9 @@
     <a class="toc_title" href="#<%= k %>"><%= k %></a>
     <ul class="toc_section">
     <% _.each(v.items, function(item, i) { %>
+      <% if (item.name) { %>
       <li>- <a href="#<%= k %>_<%= item.name %>"><%= item.name %></a></li>
+      <% } %>
     <% }) %>
     </ul>
   <% }) %>
@@ -211,6 +213,7 @@
       <pre><%- v.more %></pre>
       <% } %>
       <% _.each(v.items, function(item, i) { %>
+      <% if (item.name) { %>
         <p id="<%= k %>_<%= item.name %>">
           <b class="header"><%= item.name %></b><code><%- item.grammar %></code>
           <br>
@@ -226,6 +229,7 @@
         <% if (item.more) { %>
         <pre><%- item.more %></pre>
         <% } %>
+      <% } %>
       <% }) %>
     <% }) %>
   </div>

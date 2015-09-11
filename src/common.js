@@ -6,7 +6,36 @@
  *
  * @name   common
  * @example
- * define(['common'], function(c) { ... })
+ * var foo, obj1, obj2, obj3;
+ *
+ * function Foo () {
+ *   this.a = 1
+ * };
+ * Foo.prototype.b = 2;
+ * foo = new Foo();
+ *
+ * obj1 = {
+ *   a: 1,
+ *   b: 2,
+ *   toString: 3,
+ *   isPrototypeOf: 4,
+ *   constructor: 5
+ * };
+ * obj2 = {
+ *   b: 22,
+ *   c: {
+ *     d: 6
+ *   }
+ * };
+ * obj3 = {
+ *   c: {
+ *     e: 7,
+ *     f: {
+ *       g: 8,
+ *       h: 9
+ *     }
+ *   }
+ * };
  */
 define(function () {
 	"use strict";
@@ -34,7 +63,7 @@ define(function () {
 		return typeof obj === 'object' || typeof obj === 'function' ? class2type[toString.call(obj)] : typeof obj;
 	};
 
-	'Boolean Number String Function Date RegExp Object'.replace(rWord, function(name) {
+	'Boolean Number String Function Date RegExp Object Array'.replace(rWord, function(name) {
 		var lowerName = name.toLowerCase();
 		class2type['[object ' + name + ']'] = lowerName; // for common.type method
 		common['is' + name] = function(obj) {
@@ -47,6 +76,9 @@ define(function () {
    *
    * @name has
    * @grammar c.has(obj, key)
+   * @example
+   * c.has(foo, 'a') => true
+   * c.has(foo, 'b') => false
    */
 	common.has = function(obj, key) {
 		return hasOwn.call(obj, key);
@@ -65,9 +97,10 @@ define(function () {
    * @name    forIn
    * @grammar c.forIn(obj, iteratee[, context])
    * @example
-   * c.forIn({a: 1, b: 2, toString: 3}, function(v, k) {
-   *   console.log(k + ':' + v) => 依次输出: 'a: 1', 'b: 2', 'toString: 3'
+   * c.forIn(obj1, function(v, k) {
+   *   console.log(k + ':' + v)
    * })
+   * => 依次输出: 'a: 1', 'b: 2', 'toString: 3', 'isPrototypeOf: 4', 'constructor: 5'
 	 */
 	common.forIn = function(obj, cb, context) {
 		for (var key in obj) if (cb.call(context, obj[key], key, obj) === false) return; // normal
@@ -76,7 +109,10 @@ define(function () {
 			var
 				index = 0,
 				len = nonEnumerableProps.length;
-			for (; index < len; index++) if (cb.call(context, obj[index], index, obj) === false) return;
+
+			for (; index < len; index++) {
+        if (common.has(obj, nonEnumerableProps[index]) && cb.call(context, obj[nonEnumerableProps[index]], nonEnumerableProps[index], obj) === false) return;
+      }
 		}
 	}
 
@@ -91,11 +127,12 @@ define(function () {
    * @name    extend
    * @grammar c.extend([isDeep,] obj1, obj2, obj3...)
    * @example
-   * c.extend({a: 1}, {b: 2}, {c: 3}) => {a: 1, b: 2, c: 3}
+   * c.extend(obj1, obj2) => {a: 1, b: 22, c: {d: 6}, toString: 3, isPrototypeOf: 4, constructor: 5}
    * // 浅拷贝
-   * c.extend({a: {b: 1}}, {a: {c: 2}}) => {a: {c: 2}}
+   * c.extend(obj2, obj3) => {b: 22, c: {e: 7, f: {g: 8, h: 9}}}
    * // 深度拷贝
-   * c.extend(true, {a: {b: 1}}, {a: {c: 2}}) => {a: {b: 1, c: 2}}
+   * c.extend(true, obj1, obj2, obj3)
+   * => {a: 1, b: 22, c: {d: 6, e: 7, f: {g: 8, h: 9}}, toString: 3, isPrototypeOf: 4, constructor: 5}
 	 */
 	common.extend = function() {
 		var
@@ -134,9 +171,9 @@ define(function () {
             srcType = src && type(src);
             if (copyIsArray) {
               copyIsArray = false;
-              clone = srcType === 'object' ? src : [];
+              clone = srcType === 'array' ? src : [];
             } else {
-              clone = srcType === 'array' ? src : {};
+              clone = srcType === 'object' ? src : {};
             }
 						target[prop] = this.extend(deep, clone, copy);
 					} else { // 浅拷贝
@@ -159,7 +196,7 @@ define(function () {
      * @grammar c.type(*)
      * @example
      * c.type({a: 1}) => 'object'
-     * c.type('mo.js') => 'string'
+     * c.type('mojs') => 'string'
      * c.type(2) => 'number'
      */
 		type: function(obj) {
@@ -173,6 +210,8 @@ define(function () {
      *
      * @name isBoolean
      * @grammar c.isBoolean(*)
+     * @example
+     * c.isBoolean({a: 1}) => false
      */
     /**
      * 是否是Number类型
@@ -224,6 +263,10 @@ define(function () {
      *
      * @name    isArraylike
      * @grammar c.isArraylike(*)
+     * @example
+     * c.isArraylike([1, 2, 3]) => true
+     * c.isArraylike({1: 1, 2: 2, 3: 3, length: 3}) => true
+     * c.isArraylike({1: 1, 2: 2, 3: 3}) => false
      */
     isArraylike: function(obj) {
       var
@@ -237,6 +280,9 @@ define(function () {
      *
      * @name isNaN
      * @grammar c.isNaN(*)
+     * @example
+     * c.isNaN(NaN) => true
+     * c.isNaN(undefined) => false
      */
     isNaN: function(obj) {
       return obj === undefined ? false : isNaN(obj);
@@ -246,6 +292,9 @@ define(function () {
      *
      * @name size
      * @grammar c.size(obj)
+     * @example
+     * c.size([1, 2, 3]) => 3
+     * c.size({a: 1, b: 2}) => 2
      */
 		size: function(obj) {
 			if (obj == null) return 0;
@@ -255,6 +304,8 @@ define(function () {
      * 去掉字符串前后的空
      * @name    trim
      * @grammar c.trim(text)
+     * @example
+     * c.trim(' abc defg ') => 'abc defg'
      */
     trim: function(text) {
       if (nativeTrim) return nativeTrim.call(text);
@@ -266,6 +317,8 @@ define(function () {
      *
      * @name keys
      * @grammar c.keys(obj)
+     * @example
+     * c.keys({a: 1, b: 2}) => ['a', 'b']
      */
     keys: function(obj) {
       var
@@ -298,7 +351,7 @@ define(function () {
       window.console && Function.apply.call(console.log, console, arguments);
     },
     /**
-     * 同Objec.create(prototype)
+     * 同Object.create(prototype)
      *
      * @param  {object} prototype
      * @return {object} 原型为参数prototype的对象
@@ -306,7 +359,8 @@ define(function () {
      * @name    baseCreate
      * @grammar c.baseCreate(prototype)
      * @example
-     * c.prototype({a: function(){}, b: function() {}})
+     * c.baseCreate() => {}
+     * c.baseCreate({ a: Foo }).a => Foo
      */
     baseCreate: function(prototype) {
       if (!this.isObject(prototype)) return {};

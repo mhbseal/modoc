@@ -1,12 +1,13 @@
 ﻿/**
- * es5 polyfill or shim. 其中each,map,filter,some,every可以应用到类数组,对象. indexOf,lastIndexOf,reduce,reduceRight可以应用到类数组
+ * es5 shim
+ * 其中each,map,filter,some,every可以应用到类数组,对象
+ * indexOf,lastIndexOf,reduce,reduceRight可以应用到类数组
+ *
  *
  * @author hbmu
  * @date   2015/2/3
  *
  * @name   es5
- * @example
- * define(['es5'], function(date) { ... })
  */
 define(['common'], function (c) {
 	"use strict";
@@ -93,7 +94,7 @@ define(['common'], function (c) {
 			return results;
 		},
 		/**
-     * 遍历类数组或者对象,返回一个新数组(obj执行iteratee后返回值为真的obj的元素的集合),其他同map
+     * 遍历类数组或者对象,返回一个新数组(obj执行iteratee后返回值为真的value的元素的集合),其他同map
      *
      * @name filter
 		 */
@@ -132,7 +133,7 @@ define(['common'], function (c) {
 			var result = true;
 
 			this.each(obj, function(value, index, obj) {
-				if(cb.call(context, value, index, obj) === false) {
+				if(cb.call(context, value, index, obj) !== true) {
 					return (result = false);
 				}
 			});

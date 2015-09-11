@@ -5,11 +5,6 @@
  * @date   2014/10/20
  *
  * @name   utils
- * @example
- * define(['util'], function(util) {
- *   var str = 'mo';
- *   var num = 19871103;
- * })
  */
 define(function () {
 	"use strict";
@@ -45,6 +40,7 @@ define(function () {
      * @grammar util.getByteInfo(str[, index])
      * @example
      * util.getByteInfo('我的生日是1987年11月03日', 5) => Object {length: 24, index: 2}
+     * util.getByteInfo('生日：1987-08-05') => Object {length: 16}
 		 */
 		getByteInfo: function(str, index) {
 			var
@@ -80,9 +76,9 @@ define(function () {
      * @name    pad
      * @grammar util.pad(str, len[, fill][, right])
      * @example
-     * util.pad(str, 4, '-') => '--mo'
-     * util.pad(num, 14, 0, true) => '19871103000000'
-     * util.pad(num, , 6, null, false, true) => '871103'
+     * util.pad('mo', 4, '-') => '--mo'
+     * util.pad(19871103, 14, 0, true) => '19871103000000'
+     * util.pad(19871103, 6, null, false, true) => '871103'
 		 */
 		pad: function(str, len, fill, right, trim) {
 			str = str + '';

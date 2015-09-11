@@ -4,8 +4,6 @@
  * @date   2014/11/7
  *
  * @name   ParseUrl
- * @example
- * define(['ParseUrl'], function(ParseUrl) { ... })
  * @more   url注解
  * =====================================================================
  *
@@ -72,6 +70,7 @@ define(function () {
    * @grammar parseUrl.getAttr([name])
    * @example
    * parseUrl.getAttr('port') => '80'
+   * url.getAttr('protocol') => 'http'
 	 */
 	ParseUrl.prototype.getAttr = function(name) {
 		var attrs = this.result.Attr;
@@ -87,6 +86,7 @@ define(function () {
    * @name    getParam
    * @grammar parseUrl.getParam([name])
    * @example
+   * parseUrl.getParam() => {query: 'string'}
    * parseUrl.getParam('query') => 'string'
 	 */
 	ParseUrl.prototype.getParam = function(name) {

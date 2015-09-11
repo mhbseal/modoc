@@ -1,21 +1,19 @@
 /**
- * store的抽象类,针对storage中的key,一般不使用该类,常用他的子类LocalStore(options.proxy = window.localStorage)、SessionStore(options.proxy = window.sessionStorage)
+ * store的抽象类,针对storage中的key,一般不使用该类,常用他的子类LocalStore(options.storage = window.localStorage)、SessionStore(options.storage = window.sessionStorage)
  *
  * @author hbmu
  * @date   2015/4/10
  *
  * @name   AbstractStore
- * @example
- * define(['AbstractStore'], function(AbstractStore) { ... })
  */
-define(['common', 'objectPath'], function (c, objectPath) {
+define(['common', 'objectPath', 'AbstractStorage'], function (c, objectPath, AbstractStorage) {
 	"use strict";
 
 	/**
 	 * 根据liftTime 计算要增加的毫秒数
    *
 	 * @param   {string} liftTime 单位D,H,M,S. eg. '24H'
-	 * @return {number} 根据liftTime计算要增加的毫秒数
+	 * @return  {number} 根据liftTime计算要增加的毫秒数
 	 */
 	function getLifeTime(lifeTime) {
 		var
@@ -46,7 +44,7 @@ define(['common', 'objectPath'], function (c, objectPath) {
    * 构造函数
    *
    * @param {object} options
-   *   - proxy           {storage} window.localStorage/window.sessionStorage
+   *   - storage         {storage} window.localStorage/window.sessionStorage
    *   - key             {string} key
    *   - lifetime        {string} 生命周期,默认'1H' 单位D,H,M,S. eg. '24H'
    *   - rollbackEnabled {boolean} 是否回滚
@@ -55,22 +53,26 @@ define(['common', 'objectPath'], function (c, objectPath) {
    * @grammar new AbstractStore(options)
    * @example
    * var store = new AbstractStore({
-   *   proxy: window.localStorage,
+   *   storage: window.localStorage,
    *   key: 'USER'
    * }))
    */
 	var
 		AbstractStore = c.baseClass(function (options) {
 			this.options = c.extend({
-				proxy: null,
+        storage: null,
 				key: null,
 				lifeTime: '1H',
-				rollbackEnabled: false,
+				rollbackEnabled: false
 			}, options);
 
-      this.proxy = new AbstractStorage({
-        storage: this.proxy
-      })
+      this.init = function() {
+        this.proxy = new AbstractStorage({
+          storage: this.options.storage
+        })
+      }
+
+      this.init();
 		}, {
 			/**
        * 设置this.key下的value
@@ -86,7 +88,7 @@ define(['common', 'objectPath'], function (c, objectPath) {
 			set: function (value, tag, isOld) {
 				if (!this.options.rollbackEnabled && isOld) throw 'param rollbackEnabled is false'; // 如果不允许roolback,则不能设置回滚数据
 				var timeout = +new Date() + getLifeTime(this.options.lifeTime);
-				return this.options.proxy.set(this.options.key, value, tag, timeout, isOld);
+				return this.proxy.set(this.options.key, value, tag, timeout, isOld);
 			},
 			/**
        * 设置this.key下的value中name的value
@@ -130,7 +132,7 @@ define(['common', 'objectPath'], function (c, objectPath) {
        * @grammar store.get([tag][, isOld])
 			 */
 			get: function (tag, isOld) {
-				return this.options.proxy.get(this.options.key, tag, isOld);
+				return this.proxy.get(this.options.key, tag, isOld);
 			},
 			/**
        * 读取this.key下的value中name的value
@@ -153,7 +155,7 @@ define(['common', 'objectPath'], function (c, objectPath) {
        * @grammar store.getTag()
 			 */
 			getTag: function () {
-				return this.options.proxy.getTag(this.options.key);
+				return this.proxy.getTag(this.options.key);
 			},
 			/**
        * 移除存储对象
@@ -162,16 +164,18 @@ define(['common', 'objectPath'], function (c, objectPath) {
        * @grammar store.remove()
 			 */
 			remove: function () {
-				return this.options.proxy.remove(this.options.key);
+				return this.proxy.remove(this.options.key);
 			},
 			/**
        * 设置失效时间
        *
+       * @param  {number} timeout
+       *
        * @name    setExpireTime
        * @grammar store.setExpireTime()
 			 */
-			setExpireTime: function () {
-				return this.options.proxy.setExpireTime(this.options.key);
+			setExpireTime: function (timeout) {
+				return this.proxy.setExpireTime(this.options.key, timeout);
 			},
 			/**
        * 返回失效时间
@@ -180,7 +184,7 @@ define(['common', 'objectPath'], function (c, objectPath) {
        * @grammar store.getExpireTime()
 			 */
 			getExpireTime: function () {
-				return this.options.proxy.getExpireTime(this.options.key);
+				return this.proxy.getExpireTime(this.options.key);
 			},
 			/**
        * 回滚至上个版本

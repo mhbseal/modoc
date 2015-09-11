@@ -6,15 +6,7 @@
  *
  * @name   objectPath
  * @example
- * define(['objectPath'], function(objectPath) {
- *   var obj = {
- *      a: {
- *        b: {
- *          c: 'mo.js'
- *        }
- *      }
- *   }
- * })
+ * var obj = { f: { g: 'blog' } };
  */
 define(function () {
 	"use strict";
@@ -31,8 +23,8 @@ define(function () {
      * @name    set
      * @grammar objectPath.set(obj, path, value)
      * @example
-     * objectPath.set(obj, 'a.d', 'mo.js') => obj.a.d = 'mo.js'
-     * objectPath.set(obj, 'a.b.e', 'mo.js') => obj.a.b.e = 'mo.js'
+     * objectPath.set(obj, 'a.d', 'mojs') => obj.a.d = 'mojs'
+     * objectPath.set(obj, 'a.b.e', 'modoc') => obj.a.b.e = 'modoc'
 		 */
 		set: function (obj, path, value) {
 			if (!obj || !path) return false;
@@ -42,7 +34,7 @@ define(function () {
 				i = 0,
 				len = pathArr.length;
 
-			while(i < len - 1) { // 遍历 .
+			while(i < len - 1) { // 遍历
 				var key = pathArr[i];
 				if(obj[key] == null) obj[key] = {};
 				if(typeof obj[key] !== 'object') return false; // 如果遍历到的value不是object、undefined、null则放弃操作
@@ -68,7 +60,8 @@ define(function () {
      * @name    get
      * @grammar objectPath.set(obj, path)
      * @example
-     * objectPath.get(obj, 'a.b.e') => 'mo.js'
+     * objectPath.get(obj, 'f.g') => 'blog'
+     * objectPath.get(obj, 'a.b.e') => 'mojs'
 		 */
 		get: function (obj, path) {
 			if (!obj || !path) return null;

@@ -6,14 +6,13 @@
  *
  * @name   date
  * @example
- * define(['date'], function(date) {
- *   var birthday = new Date(); // 默认值,当前客户端时间Date实例
- *   var birthday = '/Date(1395331200000+0800)/'; // 非JS格式的时间戳,例如.NET
- *   var birthday = '1987/11/03 20:30:40'; // 需要重新格式化的字符串,注意12小时制不支持
- *   var birthday = '1987/11/03'; // 需要重新格式化的字符串
- *   var birthday = 565533040500; // 时间戳(number/string)
- *   var birthday = new Date('1987', '10', '03', '20', '30', '40', '500'); // Date实例
- * })
+ * var
+ *   birthday = new Date(), // 默认值,当前客户端时间Date实例
+ *   birthday2 = '/Date(562941040500+0800)/', // 非JS格式的时间戳,例如.NET
+ *   birthday3 = '1987/11/03 20:30:40', // 需要重新格式化的字符串,注意12小时制不支持
+ *   birthday4 = '1987/11/03', // 需要重新格式化的字符串
+ *   birthday5 = 562941040500, // 时间戳(number/string)
+ *   birthday6 = new Date('1987', '10', '03', '20', '30', '40', '500'); // Date实例
  */
 define(['util'], function (util) {
 	"use strict";
@@ -105,28 +104,30 @@ define(['util'], function (util) {
 	};
 	// 处理参数date
 	function dateHandler(date) {
-		var dArray; // 数组化后的日期
+		var
+      dArray, // 数组化后的日期
+      ret;
 
 		if (typeof date === 'string') { // 如果date参数是string类型
 			if (rNumberstring.test(date)) { // 如果date参数是number string类型
-				date = new Date(date);
+        ret = new Date(date);
 			} else { // 这里重新格式化,一般都是从服务端过来的数据,必须有年月日,并且顺序是年月日时分秒毫秒,并且7个值之间有间隔符,间隔符为\D
 				dArray = date.match(rDatestring); // 从string中提取new Date需要的参数
-				if(dArray.length < 3) { // 服务端时间戳,例如NET "/Date(1395331200000+0800)/"
-					date = new Date(+dArray[1]);
+				if(dArray.length < 3) { // 服务端时间戳,例如NET "/Date(562941040500+0800)/"
+          ret = new Date(+dArray[0]);
 				} else { // 格式化过的
-					date = new Date(dArray[1], dArray[2] - 1, dArray[3] || 1, dArray[4] || 0, dArray[5] || 0, dArray[6] || 0, dArray[7] || 0);
+          ret = new Date(dArray[0], dArray[1] - 1, dArray[2] || 1, dArray[3] || 0, dArray[4] || 0, dArray[5] || 0, dArray[6] || 0);
 				}
 			}
-		} else if (typeof date === 'number') { // 如果date参数是number类型
-			date = new Date(date);
-		} else if (date == null) { /// 如果不存在date参数
-			date = new Date();
-		} else if (!Object.prototype.toString.call(date) === '[object Date]') { // 如果date参数是date类型
-			return false;
-		}
+		} else if (typeof date === 'number' || Object.prototype.toString.call(date) === '[object Date]') { // 如果date参数是number类型、date类型
+      ret = new Date(+date);
+		} else if (date == null) { // 如果不存在date参数
+      ret = new Date();
+		} else {
+      return false;
+    }
 
-		return date;
+		return ret;
 	}
 
 	var rDatestring = /\d+/g;
@@ -187,10 +188,9 @@ define(['util'], function (util) {
      * @name    format
      * @grammar date.format([date,] format)
      * @example
-     * date.format('YYYY-MM-DD HH:mm:ss') => '1987-11-03 20:30:40'
-     * date.format(birthday, 'YYYY-MM-DD HH:mm:ss') => '1987-11-03 20:30:40'
-     * date.format(birthday, 'YY年M月D日 h时m分s秒 S毫秒 ddd') => '87年12月3日 8时30分40秒 500毫秒 周四'
-     * date.format(birthday, '\\Q\\ww\\a,第Q季度,第ww周季度,A') => 'Qwwa,第4季度,第49周季度,PM'
+     * date.format(birthday6, 'YYYY-MM-DD HH:mm:ss:SSS') => '1987-11-03 20:30:40:500'
+     * date.format(birthday6, 'YY年M月D日 h时m分s秒 S毫秒 ddd') => '87年11月3日 8时30分40秒 500毫秒 周二'
+     * date.format(birthday6, '\\Q\\ww\\a,第Q季度,第ww周季度,A') => 'Qwwa,第4季度,第45周季度,PM'
      *
      * @more token映射表 参照 http://momentjs.com/docs/#/displaying/,只引用了其中一部分,涉及到中文的部分稍微有调整
      * ==================================================================
@@ -254,11 +254,10 @@ define(['util'], function (util) {
    * @name    add/sub
    * @grammar date.add([date,] name, number)/date.sub([date,] name, number)
    * @example
-   * date.add('Minutes', 5) => Thu Dec 03 1987 20:35:40 GMT+0800 (中国标准时间)
-   * date.add(birthday, 'Time', 5000) => Thu Dec 03 1987 20:35:45 GMT+0800 (中国标准时间)
-   * date.sub(birthday, 'Minutes', 5) => Thu Dec 03 1987 20:30:45 GMT+0800 (中国标准时间)
+   * date.add(birthday6, 'Hours', 1) => Tue Nov 03 1987 21:30:40 GMT+0800 (CST)
+   * date.sub(birthday6, 'Minutes', 1) => Tue Nov 03 1987 20:29:40 GMT+0800 (CST)
 	 */
-	var  computeFactory = function(method) {
+	var computeFactory = function(method) {
 		date[method] = function(date, name, num) {
 			if (arguments.length === 2) { // 修正参数
 				num = name;

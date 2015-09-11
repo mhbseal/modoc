@@ -5,9 +5,6 @@
  * @date   2014/10/21
  *
  * @name   IdCard
- * @example
- * define(['IdCard'], function(IdCard) { ... })
- *
  * @more  身份证规则
  * =====================================================================
  * 身份证15位编码规则 -- dddddd yymmdd xx p
@@ -27,7 +24,7 @@
  * 校验位index计算公式         : index = mod(∑(ai×Wi), 11)
  * =====================================================================
  */
-define(['common'], function (c) {
+define(function () {
 	"use strict";
 
 	var
@@ -38,21 +35,15 @@ define(['common'], function (c) {
    * 构造函数
    *
 	 * @param {string} 身份证号,这里必须是string格式,因为身份证号超出了js的整数精度范围
-	 * @param {object} options,可选
-	 *   - requireAreaInfo {boolean} 是否需要校验、获取省市区信息
    *
    * @name    IdCard
-   * @grammar new IdCard(num, options)
+   * @grammar new IdCard(num)
    * @example
-   * var idCard = new IdCard('610125198711037137', {requireAreaInfo: true});
-   * // 要校验省市区或者获取省市区信息,需要异步引入一个较大的地区信息data(100K+),没有必要,建议不要设置requireAreaInfo!
+   * var idCard = new IdCard('610125198711037137');
 	 */
-	function IdCard(num, options) {
-		this.options = c.extend({
-			requireAreaInfo: false
-		}, options);
+	function IdCard(num) {
 		this.num = num;
-	}
+	};
 
 	/**
    * 验证校验位,针对18位
@@ -95,7 +86,7 @@ define(['common'], function (c) {
 			newMonth = date.getMonth() + 1,
 			newDay = date.getDate(),
 			now = new Date();
-		if (birth.year !== newYear || birth.month !== newMonth || birth.day !== newDay || date > now) return false;
+		if (+birth.year !== newYear || +birth.month !== newMonth || +birth.day !== newDay || date > now) return false;
 		return true;
 	};
 	/**
@@ -108,15 +99,15 @@ define(['common'], function (c) {
    *
    * @name getBirth
    * @example
-   * idCard.getBirth() => {year: 1987, month: 11, day: 13}
+   * idCard.getBirth() => {year: '1987', month: '11', day: '03'}
 	 */
 	IdCard.prototype.getBirth = function() {
 		var num = this.num;
 		if (num.length === 15) num = num.slice(0, 6) + "19" + num.slice(6, 16); // 修正15位的年月日
 		return {
-			year: +num.slice(6, 10),
-			month: +num.slice(10, 12),
-			day: +num.slice(12, 14)
+			year: num.slice(6, 10),
+			month: num.slice(10, 12),
+			day: num.slice(12, 14)
 		};
 	};
 	/**

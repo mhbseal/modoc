@@ -6,7 +6,23 @@
  *
  * @name   pubSub
  * @example
- * define(['pubSub'], function(pubSub) { ... })
+ * var
+ *   data = [{
+ *     name: '熊大',
+ *     job: '阻止光头强砍树'
+ *   }, {
+ *     name: '熊二',
+ *     job: '调戏光头强'
+ *   }, {
+ *     name: '光头强',
+ *     job: '伐木'
+ *   }],
+ *   handler = handler = function(data) {
+ *     console.log(data.name + '应该' + data.job);
+ *   },
+ *   handler2 = function(data) {
+ *     console.log(data.name + '喜欢' + data.job);
+ *   };
  */
 define(['es5', 'objectPath'], function (es5, objectPath) {
 	"use strict";
@@ -55,6 +71,20 @@ define(['es5', 'objectPath'], function (es5, objectPath) {
      *
      * @name    subscribe
      * @grammar pubSub.subscribe(message, handler[, context])
+     * @example
+     * pubSub.subscribe('a', handler);
+     * pubSub.subscribe('a', handler2);
+     * pubSub.publish('a', data[0]);
+     * => '熊大应该阻止光头强砍树'
+     * => '熊大喜欢阻止光头强砍树'
+     * pubSub.subscribe('b', handler);
+     * pubSub.subscribe('b.b', handler2);
+     * pubSub.publish('b', data[1]);
+     * => '熊二应该调戏光头强'
+     * => '熊二喜欢调戏光头强'
+     * pubSub.subscribe('c', handler);
+     * pubSub.publish('c', data[2]);
+     * => '光头强应该伐木'
 		 */
 		subscribe: function(message, handler, context) {
 			var handlers = objectPath.get(messages, message);
@@ -73,6 +103,13 @@ define(['es5', 'objectPath'], function (es5, objectPath) {
      *
      * @name    unsubscribe
      * @grammar pubSub.unsubscribe(message, handler)
+     * @example
+     * pubSub.unsubscribe('a', handler2);
+     * pubSub.publish('a', data[0]);
+     * => '熊大应该阻止光头强砍树'
+     * pubSub.unsubscribe('b');
+     * pubSub.publish('b', data[1]);
+     * => '熊二喜欢调戏光头强'
 		 */
 		unsubscribe: function(message, handler) {
 			var
@@ -102,6 +139,11 @@ define(['es5', 'objectPath'], function (es5, objectPath) {
      *
      * @name    clear
      * @grammar pubSub.unsubscribe(message)
+     * @example
+     * pubSub.clear('b');
+     * pubSub.publish('b', data[1]);
+     * pubSub.clear();
+     * pubSub.publish('c', data[2]);
 		 */
 		clear: function(message) {
 			if (message) {

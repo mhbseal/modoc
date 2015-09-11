@@ -82,7 +82,7 @@ data.forEach(function(text) { // 循环文件
     })
   });
 
-  result[singleName] = singleResult;
+  if (singleName) result[singleName] = singleResult;
 })
 
 // 模板渲染
