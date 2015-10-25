@@ -1,6 +1,6 @@
 {
   "name": "modoc",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "an API documentation generator",
   "bin": {
     "modoc": "./bin/modoc.js"
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mhbseal/modoc.git"
+    "url": "https://github.com/mhbseal/modoc.git"
   },
   "author": "Mu Haibao <mhbseal@163.com>",
   "dependencies": {

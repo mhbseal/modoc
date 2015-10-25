@@ -17,7 +17,7 @@ process.argv.forEach(function(argv, i) {
 
 // 读取config内容
 try {
-  config = require(configPath);
+  config = require(path.join(process.cwd(), configPath));
 } catch (e) {
   console.log('config missing');
   return;
