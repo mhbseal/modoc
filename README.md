@@ -1,33 +1,39 @@
 # modoc
 ### An API documentation generator
 
-##### Install
+##### Install and Run
 
+npm  
+
+    npm install modoc -g
+    
+    modoc --config <configPath>
+
+github (contains mojs example[http://mhbseal.com/api/mojs.html],  
+so we can run 'node modoc.js --config ./example/config.json' directly)
+    
     git clone https://github.com/mhbseal/modoc.git
     cd modoc && npm install
+    
+    node modoc.js --config <configPath>
+    
 
-##### Run
 
-this repository contains mojs example(http://mhbseal.com/api/mojs.html), so we can run directly.
-
-    node modoc.js
-
-##### Directory introduction
-
-    dest -- output directory 
-    src --- intput directory
-    config.json --- document config
-    modoc.js --- main file
-    template.html --- document template
-
-##### Usage
-
-1. edit config.json, configuration document information.
-2. enter dest/images,replace logo.png.
-3. enter src,clear this directory,copy your files to the directory.
-4. run modoc, successfully, generate a doc({config.name}.html) in dest.
+##### Config
   
-##### Examples
+    {
+      "name": "",
+      "version": "",
+      "repositoryUrl": "",
+      "introduction": "",
+      "paths": {
+        "input": "",
+        "output": ""
+      },
+      "skip": []
+    }
+    
+##### Comment Example
   
 general document comment
 

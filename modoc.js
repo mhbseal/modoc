@@ -5,13 +5,29 @@ var
   data = [],
   result = {},
   skipDir = [],
-  tpl, filenames, matchs, name, html, eachFile, fixDir, config;
+  tpl, filenames, matchs, name, html, eachFile, fixDir, config, srcPath, distPath;
 
-// 读取config
-config = JSON.parse(fs.readFileSync('config.json', {encoding: 'utf8'}));
+// 读取目录
+process.argv.forEach(function(argv, i) {
+  if (argv === '--config') {
+    configPath = process.argv[i + 1];
+  }
+});
+
+// 读取config内容
+try {
+  config = JSON.parse(fs.readFileSync(path.join(configPath), {encoding: 'utf8'}));
+} catch (e) {
+  console.log('paths is wrong or config.json missing');
+  return;
+}
+
+// 路径
+srcPath = config.paths.input;
+distPath = config.paths.output;
 
 // 排除目录矫正
-_.each(config.skip, function(v) {skipDir.push(path.join('src', v))});
+_.each(config.skip, function(v) {skipDir.push(path.join(srcPath, v))});
 
 // 遍历src文件夹读取js
 eachFile = function(dir) {
@@ -33,8 +49,8 @@ eachFile = function(dir) {
 };
 
 // 读取数据
-tpl = fs.readFileSync('template.html', {encoding: 'utf8'});
-eachFile('src');
+tpl = fs.readFileSync(path.join(__dirname, 'template.html'), {encoding: 'utf8'});
+eachFile(srcPath);
 
 // 读取注释
 data.forEach(function(text) { // 循环文件
@@ -88,8 +104,15 @@ data.forEach(function(text) { // 循环文件
 // 模板渲染
 html = _.template(tpl)({config: config, data: result});
 
+// 创建生成目录
+!fs.existsSync(distPath) && fs.mkdirSync(distPath);
+!fs.existsSync(path.join(distPath, 'images')) && fs.mkdirSync(path.join(distPath, 'images'));
+
 // 生成doc
-fs.writeFileSync(path.join('dest', config.name + '.html'), html);
+fs.writeFileSync(path.join(distPath, config.name + '.html'), html);
+// 生成html需要的image
+fs.writeFileSync(path.join(distPath, 'images/logo.png'), fs.readFileSync(path.join(__dirname, 'images/logo.png')));
+fs.writeFileSync(path.join(distPath, 'images/background.png'), fs.readFileSync(path.join(__dirname, 'images/background.png')));
 
 // success log
 console.log('all success!')

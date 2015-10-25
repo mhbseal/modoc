@@ -1,16 +1,29 @@
 {
   "name": "modoc",
-  "version": "0.1.0",
+  "version": "0.1.3",
   "description": "an API documentation generator",
+  "bin": {
+    "modoc": "./bin/modoc.js"
+  },
   "scripts": {
     "start": "node modoc.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mhbseal/modoc"
+    "url": "git+https://github.com/mhbseal/modoc.git"
   },
-  "author": "Mu Haibao<mhbseal@163.com>",
+  "author": "Mu Haibao <mhbseal@163.com>",
   "dependencies": {
     "underscore": "^1.8.3"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/mhbseal/modoc/issues"
+  },
+  "homepage": "https://github.com/mhbseal/modoc",
+  "keywords": [
+    "documentation",
+    "generator",
+    "API"
+  ],
+  "license": "MIT"
 }
