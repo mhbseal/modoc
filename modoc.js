@@ -5,6 +5,7 @@ var
   data = [],
   result = {},
   skipDir = [],
+  configPath = './modoc.config.js',
   tpl, filenames, matchs, name, html, eachFile, fixDir, config, srcPath, distPath;
 
 // 读取目录
@@ -16,9 +17,9 @@ process.argv.forEach(function(argv, i) {
 
 // 读取config内容
 try {
-  config = JSON.parse(fs.readFileSync(path.join(configPath), {encoding: 'utf8'}));
+  config = require(configPath);
 } catch (e) {
-  console.log('paths is wrong or config.json missing');
+  console.log('config missing');
   return;
 }
 

@@ -10,7 +10,7 @@ npm
     modoc --config <configPath>
 
 github (contains mojs example[http://mhbseal.com/api/mojs.html],  
-so we can run 'node modoc.js --config ./example/config.json' directly)
+so we can run 'node modoc.js --config ./example/modoc.config.json' directly)
     
     git clone https://github.com/mhbseal/modoc.git
     cd modoc && npm install
