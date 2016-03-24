@@ -5,9 +5,6 @@
   "bin": {
     "modoc": "./bin/modoc.js"
   },
-  "scripts": {
-    "start": "node modoc.js"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/mhbseal/modoc.git"
