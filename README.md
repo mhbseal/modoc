@@ -38,7 +38,7 @@ github
         "input": "",
         "output": ""
       },
-      source: '',
+      "source": "",
       "skip": []
     }
     
