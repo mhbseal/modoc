@@ -53,10 +53,10 @@ define(function () {
 		hasOwn = ObjProto.hasOwnProperty,
 		nativeCreate = Object.create,
 		nativeIsArray = ArrayProto.isArray,
-		rWord = /[^,| ]+/g,
+		rWord = /[^,| ]+/g, // 分隔符正则
 		// 在<IE9下，不枚举的bug
 		hasEnumBug = !{toString: null}.propertyIsEnumerable('toString'),
-		nonEnumerableProps = ['toString',	'toLocaleString', 'valueOf', 'hasOwnProperty',	'isPrototypeOf', 'propertyIsEnumerable', 'constructor']; // 分隔符正则
+		nonEnumerableProps = ['toString',	'toLocaleString', 'valueOf', 'hasOwnProperty',	'isPrototypeOf', 'propertyIsEnumerable', 'constructor'];
 
 	// 判断数据类型基础方法
 	function type(obj) {
@@ -89,8 +89,8 @@ define(function () {
    *
 	 * @param {object} obj
 	 * @param {function} iteratee
-	 *   - param {*} value
-	 *   - param {*} key
+	 *   - param {..} value
+	 *   - param {..} key
 	 *   - param {object} forIn的第一个参数obj
 	 * @param {object} iteratee的上下文,可选
    *
@@ -121,7 +121,7 @@ define(function () {
    *
 	 * @param   {boolean} 是否深度复制,可选
 	 * @param   {object|array} 目标对象
-	 * @param.. {object|array} 需要extend的对象,可多个参数
+	 * @params  {object|array} 需要extend的对象,可多个参数
 	 * @return  {object|array} extend后的object
    *
    * @name    extend

@@ -6,7 +6,7 @@
  *
  * @name   AbstractStore
  */
-define(['common', 'objectPath', 'AbstractStorage'], function (c, objectPath, AbstractStorage) {
+define(['common', 'objectPath'], function (c, objectPath) {
 	"use strict";
 
 	/**
@@ -44,7 +44,7 @@ define(['common', 'objectPath', 'AbstractStorage'], function (c, objectPath, Abs
    * 构造函数
    *
    * @param {object} options
-   *   - storage         {storage} window.localStorage/window.sessionStorage
+   *   - proxy           {AbstractStorage} AbstractStorage实例
    *   - key             {string} key
    *   - lifetime        {string} 生命周期,默认'1H' 单位D,H,M,S. eg. '24H'
    *   - rollbackEnabled {boolean} 是否回滚
@@ -53,31 +53,25 @@ define(['common', 'objectPath', 'AbstractStorage'], function (c, objectPath, Abs
    * @grammar new AbstractStore(options)
    * @example
    * var store = new AbstractStore({
-   *   storage: window.localStorage,
+   *   proxy: new AbstractStorage({
+   *     storage: window.localStorage
+   *   })
    *   key: 'USER'
    * }))
    */
 	var
 		AbstractStore = c.baseClass(function (options) {
 			this.options = c.extend({
-        storage: null,
+        proxy: null,
 				key: null,
 				lifeTime: '1H',
 				rollbackEnabled: false
 			}, options);
-
-      this.init = function() {
-        this.proxy = new AbstractStorage({
-          storage: this.options.storage
-        })
-      }
-
-      this.init();
 		}, {
 			/**
        * 设置this.key下的value
        *
-			 * @param  {*} value
+			 * @param  {..} value
 			 * @param  {string} 可选,tag标识,如果传递tag,get时会比较tag标识,不一致返回null
 			 * @param  {string} 可选,默认false,是否设置回滚数据
 			 * @return {boolean} 成功true,失败false
@@ -88,13 +82,13 @@ define(['common', 'objectPath', 'AbstractStorage'], function (c, objectPath, Abs
 			set: function (value, tag, isOld) {
 				if (!this.options.rollbackEnabled && isOld) throw 'param rollbackEnabled is false'; // 如果不允许roolback,则不能设置回滚数据
 				var timeout = +new Date() + getLifeTime(this.options.lifeTime);
-				return this.proxy.set(this.options.key, value, tag, timeout, isOld);
+				return this.options.proxy.set(this.options.key, value, tag, timeout, isOld);
 			},
 			/**
        * 设置this.key下的value中name的value
        *
 			 * @param  {String} name 支持通过路径的方式，如'a.b.c'
-			 * @param  {*} value
+			 * @param  {..} value
 			 * @param  {string} 可选,tag标识,如果传递tag,get时会比较tag标识,不一致返回null
 			 * @param  {string} 可选,默认false,是否设置回滚数据
 			 * @return {boolean} 成功true,失败false
@@ -126,13 +120,13 @@ define(['common', 'objectPath', 'AbstractStorage'], function (c, objectPath, Abs
        *
 			 * @param  {string} 可选,tag标识,如果传递tag,get时会比较tag标识,不一致返回null
 			 * @param  {string} 可选,默认false,是否设置回滚数据
-			 * @return {*} value
+			 * @return {..} value
        *
        * @name    get
        * @grammar store.get([tag][, isOld])
 			 */
 			get: function (tag, isOld) {
-				return this.proxy.get(this.options.key, tag, isOld);
+				return this.options.proxy.get(this.options.key, tag, isOld);
 			},
 			/**
        * 读取this.key下的value中name的value
@@ -140,7 +134,7 @@ define(['common', 'objectPath', 'AbstractStorage'], function (c, objectPath, Abs
 			 * @param  {String} name 支持通过路径的方式，如'a.b.c'
 			 * @param  {string} 可选,tag标识,如果传递tag,get时会比较tag标识,不一致返回null
 			 * @param  {string} 可选,默认false,是否设置回滚数据
-			 * @return {*} value
+			 * @return {..} value
        *
        * @name    getAttr
        * @grammar store.getAttr(name[, tag][, isOld])
@@ -155,7 +149,7 @@ define(['common', 'objectPath', 'AbstractStorage'], function (c, objectPath, Abs
        * @grammar store.getTag()
 			 */
 			getTag: function () {
-				return this.proxy.getTag(this.options.key);
+				return this.options.proxy.getTag(this.options.key);
 			},
 			/**
        * 移除存储对象
@@ -164,7 +158,7 @@ define(['common', 'objectPath', 'AbstractStorage'], function (c, objectPath, Abs
        * @grammar store.remove()
 			 */
 			remove: function () {
-				return this.proxy.remove(this.options.key);
+				return this.options.proxy.remove(this.options.key);
 			},
 			/**
        * 设置失效时间
@@ -175,7 +169,7 @@ define(['common', 'objectPath', 'AbstractStorage'], function (c, objectPath, Abs
        * @grammar store.setExpireTime()
 			 */
 			setExpireTime: function (timeout) {
-				return this.proxy.setExpireTime(this.options.key, timeout);
+				return this.options.proxy.setExpireTime(this.options.key, timeout);
 			},
 			/**
        * 返回失效时间
@@ -184,7 +178,7 @@ define(['common', 'objectPath', 'AbstractStorage'], function (c, objectPath, Abs
        * @grammar store.getExpireTime()
 			 */
 			getExpireTime: function () {
-				return this.proxy.getExpireTime(this.options.key);
+				return this.options.proxy.getExpireTime(this.options.key);
 			},
 			/**
        * 回滚至上个版本

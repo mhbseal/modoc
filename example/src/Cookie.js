@@ -47,7 +47,7 @@ define(['common', 'es5'], function(c, es5) {
    * 设置cookie
    *
    * @param {string} name
-   * @param {*} value
+   * @param {..} value
    * @param {obj} options
    *   - expires {number|string} 失效时长,单位 ‘天’, 默认为Session
    *   - path    {string} 路径,path只能设置当前path的子path, 默认为当前path
@@ -80,7 +80,7 @@ define(['common', 'es5'], function(c, es5) {
    * 读取cookie
    *
 	 * @param  {string} cookie的name
-	 * @return {*} cookie的value
+	 * @return {..} cookie的value
    *
    * @name    get
    * @grammar cookie.get(name)

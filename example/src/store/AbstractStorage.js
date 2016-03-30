@@ -103,7 +103,7 @@ define(['common'], function (c) {
 			 * 设置数据
        *
 			 * @param  {string} key
-			 * @param  {*} value
+			 * @param  {..} value
 			 * @param  {string} 可选,tag标识,如果传递tag,get时会比较tag标识,不一致返回null
 			 * @param  {number} 可选,失效时间,默认 now+1天的时间戳
 			 * @param  {string} 可选,默认false,是否设置回滚数据
@@ -145,7 +145,7 @@ define(['common'], function (c) {
 			 * @param  {string} key
 			 * @param  {string} tag标识,如果传递tag,get时会比较tag标识,不一致返回null
 			 * @param  {boolean} 可选,默认false,是否读取回滚数据
-			 * @return {*} 读取保存的数据
+			 * @return {..} 读取保存的数据
 			 */
 			get: function (key, tag, isOld) {
 				var

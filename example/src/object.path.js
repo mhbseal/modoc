@@ -17,7 +17,7 @@ define(function () {
      *
 		 * @param  {object} obj
 		 * @param  {string} path
-		 * @param  {*} value
+		 * @param  {..} value
 		 * @return {boolean} 成功true,失败false
      *
      * @name    set
@@ -55,7 +55,7 @@ define(function () {
      *
 		 * @param  {object} obj
 		 * @param  {string} path
-		 * @return {*} value
+		 * @return {..} value
      *
      * @name    get
      * @grammar objectPath.set(obj, path)

@@ -36,7 +36,7 @@ define(['es5', 'objectPath'], function (es5, objectPath) {
    *
 	 * @param {object} 消息集合(messages或者包含子message的message)
 	 * @param {string} 消息
-	 * @param {*} 执行订阅的handler时传入的data
+	 * @param {..} 执行订阅的handler时传入的data
 	 */
 	function _publish(messages, message, data) {
 		var handlers = objectPath.get(messages, message);
@@ -54,7 +54,7 @@ define(['es5', 'objectPath'], function (es5, objectPath) {
      * 发布
      *
 		 * @param {string} 消息,支持子message. eg. 'a.b.c'
-		 * @param {*} 执行订阅的handler时传入的data
+		 * @param {..} 执行订阅的handler时传入的data
      *
      * @name    publish
      * @grammar pubSub.publish(message, data)

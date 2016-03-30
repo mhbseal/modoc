@@ -10,16 +10,16 @@
  *   key: 'USER'
  * })
  */
-define(['common', 'AbstractStore'], function (c, AbstractStore) {
+define(['common', 'AbstractStore', 'AbstractStorage'], function (c, AbstractStore, AbstractStorage) {
 	"use strict";
 
 	var
 		LocalStore = c.baseClass(function (options) {
       c.extend(this.options, options, {
-        storage: window.localStorage
+        proxy: new AbstractStorage({
+          storage: window.localStorage
+        })
       })
-
-      this.init();
 		}, AbstractStore);
 
 	return LocalStore;

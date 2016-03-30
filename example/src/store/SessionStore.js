@@ -10,16 +10,16 @@
  *   key: 'USER'
  * })
  */
-define(['common', 'AbstractStore'], function (c, AbstractStore) {
+define(['common', 'AbstractStore', 'AbstractStorage'], function (c, AbstractStore, AbstractStorage) {
 	"use strict";
 
 	var
 		SessionStore = c.baseClass(function (options) {
-			c.extend(this.options, options, {
-        proxy: window.sessionStorage
+      c.extend(this.options, options, {
+        proxy: new AbstractStorage({
+          storage: window.sessionStorage
+        })
       })
-
-      this.init();
 		}, AbstractStore);
 
 	return SessionStore;
