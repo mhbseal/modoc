@@ -1,5 +1,5 @@
 ﻿/**
- * es5 shim
+ * es5 super
  * 其中each,map,filter,some,every可以应用到类数组,对象
  * indexOf,lastIndexOf,reduce,reduceRight可以应用到类数组
  *
