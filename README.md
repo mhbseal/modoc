@@ -1,29 +1,29 @@
 # modoc
 ### An API documentation generator
 
-#### Install and Run
+##### Install and Run
 
-##### npm
+npm
 
     npm install modoc -g
     
     modoc --config <configPath>
 
-##### github
+github
     
     git clone https://github.com/mhbseal/modoc.git
     cd modoc && npm install
     
     node modoc.js --config <configPath>
 
-#### Example
-source contains mojs example[http://mhbseal.com/api/mojs.html],so wen can Enter 'exmpale' directory after install(npm or github)
+##### Example
+source contains mojs example[http://mhbseal.com/api/mojs.html] ,so wen can Enter 'exmpale' directory after install(npm or github)
 
-##### npm
+npm
 
     modoc
 
-##### github
+github
 
     node ../modoc.js
 
