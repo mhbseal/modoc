@@ -1,9 +1,9 @@
 {
   "name": "modoc",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "an API documentation generator",
   "bin": {
-    "modoc": "./bin/modoc.js"
+    "modoc": "./bin/modoc"
   },
   "repository": {
     "type": "git",
