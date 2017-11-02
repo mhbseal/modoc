@@ -17,7 +17,7 @@ github
     node modoc.js --config <configPath>
 
 #### Example
-source contains mojs example[http://mhbseal.com/api/mojs.html] ,so wen can Enter 'exmpale' directory after install(npm or github)
+source contains mojs example,so wen can Enter 'exmpale' directory after install(npm or github)
 
 npm
 
